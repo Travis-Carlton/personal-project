@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+
+
+$main-background: url(http://ramauto.co/wp-content/uploads/2018/08/printable-comic-book-pages-plus-best-strip-template-ideas-on-superhero-printables.jpg) ;
+
+.App {
+    background: $main-background;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.background-image{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0.25turn,rgb(0, 0, 0),rgba(135, 135, 135, 0.262),black);
+
+}
+
