@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Signup.scss';
+import axios from 'axios';
+import {connect} from 'react-redux';
+import { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio } from '../../redux/reducer';
 
-const Signup = () => {
+class Signup extends Component {
+
+
+signUp = ()=>{
+    const {username,password,first_name,last_name,bio} = this.props;
+    axios.post('/signup', {username,password,first_name,last_name,bio})
+}
+
+render(){
+    console.log(this.props)
+    const { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio } = this.props;
     return (
         <div className="signupp">
                 <h1>SignUp</h1>
             <div className="signupc">
                 <div className='signcc'>
-                <label>Username: </label><input type="text" maxLength='15' minLength='5' required/>
-                <label>Password: </label><input type="password" maxLength='15' minLength='5' required/>
+                <label>Username: </label><input onChange={e=>updateUsername(e.target.value)} type="text" maxLength='15' minLength='5' required/>
+                <label>Password: </label><input onChange={e=>updatePassword(e.target.value)} type="password" maxLength='15' minLength='5' required/>
                 <label>Confirm password: </label><input type="password" maxLength='15' minLength='5' required/>
-                <label>First Name: </label><input type="text"/>
-                <label>Last Name: </label><input type="text"/>
-                <label>Bio: </label><textarea cols="50" rows="2"></textarea>
-                <button>SignUp</button>
+                <label>First Name: </label><input onChange={e=>updateFirstName(e.target.value)} type="text"/>
+                <label>Last Name: </label><input onChange={e=>updateLastName(e.target.value)} type="text"/>
+                <label>Bio: </label><textarea onChange={e=>updateBio(e.target.value)} cols="50" rows="2"></textarea>
+                <button onClick={this.signUp}>SignUp</button>
                 
                 </div>
                
@@ -24,7 +37,19 @@ const Signup = () => {
                 
             </div>
         </div>
-    );
+    )};
 };
 
-export default Signup;
+
+function mapStateToProps(iS){
+    const { username, password, first_name, last_name, bio } = iS;
+    return {
+        username,
+        password,
+        first_name,
+        last_name,
+        bio
+    }
+}
+
+export default connect(mapStateToProps, { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio })(Signup);
