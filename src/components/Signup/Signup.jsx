@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Signup.scss';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio } from '../../redux/reducer';
 
 class Signup extends Component {
@@ -52,4 +53,4 @@ function mapStateToProps(iS){
     }
 }
 
-export default connect(mapStateToProps, { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio })(Signup);
+export default withRouter(connect(mapStateToProps, { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio })(Signup));

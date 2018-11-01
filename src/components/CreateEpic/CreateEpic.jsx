@@ -21,8 +21,9 @@ class CreateEpic extends Component {
         return (
             <div className="createepicp">
                 <div className="createepicc"> 
-                <h1 className='createh1'>Name your<br/>Story</h1>
-                <input onChange={e=>updateBookName(e.target.value)} type="text"/>
+                <h1 className='createh1'>Create your<br/>Story</h1>
+                <span>Name: </span><input onChange={e=>updateBookName(e.target.value)} type="text"/>
+                <span>Upload Image: </span><input />
                 <button onClick={this.createBook}>Create Name</button>
                 </div>
             </div>
