@@ -1,4 +1,4 @@
 insert into perbooks
-(name)
+(name,image)
 values
-($1)
+($1,$2)

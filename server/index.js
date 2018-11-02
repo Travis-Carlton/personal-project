@@ -29,7 +29,7 @@ app.use(session({
 app.use(express.static(`${__dirname}/../build`));
 
 // signup and login
-app.post('/signup', (req,res)=>{
+app.post('/api/signup', (req,res)=>{
     console.log(req.body)
     const db = req.app.get('db');
     const saltRounds = 12;
@@ -44,11 +44,49 @@ app.post('/signup', (req,res)=>{
           console.error('error', error);
           res.status(500).json({ message: ' in signup '})
         });
-})
+    })
 });
 
+app.post('/api/login', (req,res)=>{
+    console.log('---------login', req.body)
+    const {username,password} = req.body;
+    const db = req.app.get('db');
+    db.get_user([username]).then(users => {
+        if(users.length){
+            bcrypt.compare(password,users[0].password).then(passwordsMatch => {
 
-app.post('/createbook', controller.createBook)
+                if (passwordsMatch) {
+                  req.session.user = { username: users[0].username };
+                  res.json({ user: req.session.user });
+                  console.log('Youre logged in!')
+                } else {
+                  res.status(403).json({ message: 'Wrong password' })
+                }
+              })
+
+        } else {
+            res.status(403).json({ message: "That user is not registered" })
+          }
+    });
+});
+
+app.get('/api/data', (req,res)=>{
+    const db = req.app.get('db');
+    console.log(req)
+    db.content().then( response =>{
+        console.log(response)
+        res.status(200).send(response)
+    })
+})
+
+
+app.post('/api/createbook', controller.createBook)
+
+
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 const PORT = 4000;
 app.listen(PORT, ()=>{

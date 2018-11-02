@@ -3,14 +3,20 @@ import './Signup.scss';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio } from '../../redux/reducer';
+import { clearState, updatePassword, updateUsername, updateFirstName, updateLastName, updateBio } from '../../redux/reducer';
 
 class Signup extends Component {
 
 
 signUp = ()=>{
     const {username,password,first_name,last_name,bio} = this.props;
-    axios.post('/signup', {username,password,first_name,last_name,bio})
+    axios.post('/api/signup', {username,password,first_name,last_name,bio}).then(() => {
+        // console.log(res.data)
+        return clearState()
+    }).then((res)=>{
+        this.props.history.push('/')
+        console.log(res.data)
+    }).catch(err => console.log(err))
 }
 
 render(){
@@ -53,4 +59,4 @@ function mapStateToProps(iS){
     }
 }
 
-export default withRouter(connect(mapStateToProps, { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio })(Signup));
+export default withRouter(connect(mapStateToProps, { clearState, updatePassword, updateUsername, updateFirstName, updateLastName, updateBio })(Signup));

@@ -2,9 +2,9 @@ module.exports = {
 
     createBook: (req,res)=>{
         console.log(req.body)
-        const {bookname} = req.body;
+        const {bookname,bookcover} = req.body;
         const db = req.app.get('db');
-        db.create_book([bookname]).then((response)=>{
+        db.create_book([bookname,bookcover]).then(()=>{
            res.status(200).send('Success!')
         }).catch(error => {
           console.error('error', error);
@@ -15,7 +15,7 @@ module.exports = {
         console.log(req.body)
         const {post} = req.body;
         const db = req.app.get('db');
-        db.create_book([post]).then((response)=>{
+        db.create_post([post]).then((response)=>{
            res.status(200).send('Success!')
         }).catch(error => {
           console.error('error', error);
