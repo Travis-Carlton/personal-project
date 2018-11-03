@@ -6,27 +6,48 @@ import axios from 'axios';
 import {updateUsername, updatePassword} from '../../redux/reducer';
 
 class Login extends Component{
-    
+    constructor(){
+        super();
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    lclUsername = (val)=>{
+        this.setState({
+            username: val
+        })
+    }
+    lclPassword = (val)=>{
+        this.setState({
+            password: val
+        })
+    }
 
     login = ()=>{
-        const {username, password} = this.props;
+        const {updateUsername} = this.props;
+        const {username, password} = this.state;
         axios.post('/api/login', {username, password})
         .then((res)=>{
-            this.props.history.push('/')
-            console.log(res.data)
+            console.info(res.data.user.username)
+            const {user} = res.data;
+            updateUsername(user.username);
+            this.props.history.push('/');
+            console.log('--------',res.data.user.username);
         }).catch(err => console.log(err))
     }
 
 render(){
-    console.log('login props',this.props)
-    const {updateUsername,updatePassword} = this.props;
+    // console.log('login props',this.props)
+    // const {updateUsername,updatePassword} = this.props;
     return (
         <div className="loginp">
                 <h1>Login</h1>
             <div className="loginc">
              
-                <label>Username: </label><input onChange={e=>updateUsername(e.target.value)} type="text" required/>
-                <label>Password: </label><input onChange={e=>updatePassword(e.target.value)} type="password" required/>
+                <label>Username: </label><input onChange={e=>this.lclUsername(e.target.value)} type="text" required/>
+                <label>Password: </label><input onChange={e=>this.lclPassword(e.target.value)} type="password" required/>
                 <button onClick={this.login}>Login</button>
             
             </div>
@@ -35,10 +56,9 @@ render(){
 };
 
 function mapStateToProps(iS){
-    const {username,password} = iS;
+    const {loggedIn} = iS;
     return {
-        username,
-        password
+       loggedIn
     }
 }
 

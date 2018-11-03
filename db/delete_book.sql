@@ -1,0 +1,1 @@
+delete from perbooks where id = $1

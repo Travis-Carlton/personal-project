@@ -60,8 +60,36 @@ $back-sqr: rgba(128, 128, 128, 0.604);
     img{
         height: 500px;
         width: 450px;
+        box-shadow: 15px 15px 10px $shadow;
     }
-    
+    .deleteBtn{
+            cursor: pointer;
+            font-size: 10px;
+            background: rgba(0, 0, 0, 0);
+            box-shadow: 2px 2px 1px white;
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+            border: none;
+            border-radius: 5px 5px;
+            color: white;
+            font-family: 'Permanent Marker', cursive;
+            width: 20px;
+            height: 20px;
+            transition: .8s;
+        transform: translate(214px,-5px);
+    }
+      .deleteBtn:hover{
+            font-size: 10px;
+            background: rgba(0, 0, 0, 0.858);
+            box-shadow: 2px 2px 1px white;
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+            border: none;
+            border-radius: 5px 5px;
+            color: white;
+            font-family: 'Permanent Marker', cursive;
+            width: 20px;
+            height: 20px;
+            transition: .8s;
+                }
 //     .signcc{
 //         display: flex;
 //         flex-direction: column;
@@ -121,6 +149,7 @@ $back-sqr: rgba(128, 128, 128, 0.604);
                 font-size: 3rem;    
                 text-shadow: 2px 2px 1px white;
             }
+            
         @keyframes appearpost {
             0% {
             
@@ -154,51 +183,21 @@ $back-sqr: rgba(128, 128, 128, 0.604);
     
         .postcc{
             margin-bottom: 20px;
+            // width: 200px;
+            // display: flex;
+            // flex-direction: row;
+            // justify-content: space-between;
+            // align-items: center;
         }
     
         img{
             height: 350px;
             width: 300px;
+            margin-bottom: 0;
         }
+
         
-    //     .signcc{
-    //         display: flex;
-    //         flex-direction: column;
-    //         justify-content: center;
-    //         align-items: center;
-    //         font-size: 18px;
-    //         text-shadow: 2px 2px 1px white;
-    
-    //         input, textarea{
-    //             margin-bottom: 10px; 
-    //             border: none;
-    //             border-top-right-radius: 5px 5px;
-    //             border-bottom-left-radius: 5px 5px;
-    //             background: rgba(80, 80, 80, 0.639);
-    //             color: white;
-    //             box-shadow: 2px 2px 1px white;
-    //             font-family: 'Permanent Marker', cursive;
-    //         }
-    
-    //         button{
-    //             font-size: 20px;
-    //             background: rgba(0, 0, 0, 0.858);
-    //             box-shadow: 2px 2px 1px white;
-    //             text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
-    //             border: none;
-    //             border-radius: 10px 10px;
-    //             color: white;
-    //             font-family: 'Permanent Marker', cursive;
-    //             width: 100px;
-    //             height: 30px;
-    //             transition: .8s;
-    //         }
-    //          button:hover{
-    //                     width: 130px;
-    //                     height: 40px;
-    //                     // font-size: 
-    //                 }
-    //    }
+        
     }
 }
 

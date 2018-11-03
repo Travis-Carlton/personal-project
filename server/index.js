@@ -28,7 +28,8 @@ app.use(session({
   
 app.use(express.static(`${__dirname}/../build`));
 
-// signup and login
+// signup and login //////////
+
 app.post('/api/signup', (req,res)=>{
     console.log(req.body)
     const db = req.app.get('db');
@@ -70,17 +71,20 @@ app.post('/api/login', (req,res)=>{
     });
 });
 
+//////////////////////////
+
 app.get('/api/data', (req,res)=>{
     const db = req.app.get('db');
-    console.log(req)
+    // console.log(req)
     db.content().then( response =>{
-        console.log(response)
+        // console.log(response)
         res.status(200).send(response)
     })
 })
 
 
-app.post('/api/createbook', controller.createBook)
+app.post('/api/createbook', controller.createBook);
+app.delete(`/api/deleteBook`, controller.deleteBook);
 
 
 const path = require('path')

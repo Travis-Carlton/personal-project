@@ -11,10 +11,18 @@ import Nav from './components/Nav/Nav';
 class App extends Component {
 
 componentDidMount(){
+  this.getData();
+
   
+}
+getUser = ()=>{
+  axios.get('/api/user').then()
+}
+
+getData = ()=>{
   axios.get('/api/data').then(res=>{
     // const {books} = this.props;
-    console.log('app.js-----',res.data)
+    // console.log('app.js-----',res.data)
     this.props.updateBooks(res.data)
   })
 }

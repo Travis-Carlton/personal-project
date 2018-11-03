@@ -57,6 +57,25 @@ $back-sqr: rgba(128, 128, 128, 0.604);
         font-size: 2rem;
         font-family: 'Permanent Marker', cursive;
     }
+    .createButton{
+        margin-top: 20px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.858);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 10px 10px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        width: 150px;
+        height: 30px;
+        transition: .8s;
+    }
+     .createButton:hover{
+                width: 180px;
+                height: 40px;
+                // font-size: 
+            }
     // p{
     //     margin-bottom: 250px;
     //     text-shadow: 2px 2px 1px white;
@@ -117,11 +136,7 @@ $back-sqr: rgba(128, 128, 128, 0.604);
             font-size: 2rem;
             font-family: 'Permanent Marker', cursive;
         }
-        // p{
-        //     margin-bottom: 250px;
-        //     text-shadow: 2px 2px 1px white;
-    
-        // }
+        
     }
 }
 

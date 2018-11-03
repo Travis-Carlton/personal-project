@@ -15,12 +15,12 @@ signUp = ()=>{
         return clearState()
     }).then((res)=>{
         this.props.history.push('/')
-        console.log(res.data)
+        // console.log(res.data)
     }).catch(err => console.log(err))
 }
 
 render(){
-    console.log(this.props)
+    // console.log(this.props)
     const { updatePassword, updateUsername, updateFirstName, updateLastName, updateBio } = this.props;
     return (
         <div className="signupp">

@@ -31,11 +31,22 @@
         transition: 1s;
         
     }
+    
     .navlinks:hover{
         font-size: 1.4rem;
         color: black;
-        text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+        text-shadow: 1px 1px 2px red, 0 0 3em blue, 0 0 0.2em blue;
     }
+}
+
+.navlinks2{
+    margin: 0 20px;
+    text-decoration: none;
+    color: white;
+    transform: rotate(-10deg);
+    font-size: 1.25rem;
+    text-shadow: 10px 10px rgba(0, 0, 0, 0.351);
+    transition: 1s;
 }
 
 @media (min-width: 425px) and (max-width: 768px){

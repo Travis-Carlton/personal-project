@@ -12,14 +12,14 @@ constructor(props){
 
 
     render() {
-    console.log('home-----', this.props.books[0])
+    // console.log('home-----', this.props.books[0])
         
         let mapBooks = this.props.books.map((book,i)=>{
             return (
-               <div key={i} className="homec"><Post key={i} book={book} /></div>                
+               <div key={book.id} className="homec"><Post key={book.id} book={book} /></div>                
             )
         })
-        console.log(mapBooks)
+        // console.log(mapBooks)
 
         return (
             <div className="homep">

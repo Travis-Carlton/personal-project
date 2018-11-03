@@ -20,6 +20,7 @@ const UPDATE_BOOKNAME = 'UPDATE_BOOKNAME';
 const UPDATE_BOOKCOVER = 'UPDATE_BOOKCOVER';
 const UPDATE_BOOKS = 'UPDATE_BOOKS';
 const CLEAR_STATE = 'CLEAR_STATE';
+// const LOGGED_IN = 'LOGGED_IN';
 
 
 export default function reducer(iS = iState, action){
@@ -40,6 +41,8 @@ export default function reducer(iS = iState, action){
             return {...iS, bookcover: action.payload}
         case UPDATE_BOOKS:
             return {...iS, books: action.payload}
+        // case LOGGED_IN:
+        //     return {...iS, loggedIn: action.payload}
         case CLEAR_STATE:
             return {...action.payload}
            
@@ -50,14 +53,12 @@ export default function reducer(iS = iState, action){
 }
 
 export function updateUsername(user){
-    console.log(user)
     return {
         type: UPDATE_USERNAME,
         payload: user
     }
 }
 export function updatePassword(userpass){
-    console.log(userpass)
     return {
         type: UPDATE_PASSWORD,
         payload: userpass
@@ -99,6 +100,12 @@ export function updateBooks(books){
         payload: books
     }
 }
+// export function loggedInStatus(){
+//     return {
+//         type: LOGGED_IN,
+//         payload: true
+//     }
+// }
 export function clearState(){
     return {
         type: CLEAR_STATE,
