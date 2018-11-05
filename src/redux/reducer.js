@@ -1,5 +1,6 @@
 const iState = {
     loggedIn: false,
+    id: 0,
     username: '',
     password: '',
     first_name: '',
@@ -8,7 +9,7 @@ const iState = {
     bookname: '',
     bookcover: '',
     books: [],
-    profilePic: null
+    profilePic: ''
 };
 
 const UPDATE_USERNAME = 'UPDATE_USERNAME';
@@ -19,8 +20,9 @@ const UPDATE_BIO = 'UPDATE_BIO';
 const UPDATE_BOOKNAME = 'UPDATE_BOOKNAME';
 const UPDATE_BOOKCOVER = 'UPDATE_BOOKCOVER';
 const UPDATE_BOOKS = 'UPDATE_BOOKS';
+const UPDATE_ID = 'UPDATE_ID';
 const CLEAR_STATE = 'CLEAR_STATE';
-// const LOGGED_IN = 'LOGGED_IN';
+const PROFILE_PIC = 'PROFILE_PIC';
 
 
 export default function reducer(iS = iState, action){
@@ -41,10 +43,12 @@ export default function reducer(iS = iState, action){
             return {...iS, bookcover: action.payload}
         case UPDATE_BOOKS:
             return {...iS, books: action.payload}
-        // case LOGGED_IN:
-        //     return {...iS, loggedIn: action.payload}
+        case UPDATE_ID:
+            return {...iS, id: action.payload}
+        case PROFILE_PIC:
+            return {...iS, profilePic: action.payload}
         case CLEAR_STATE:
-            return {...action.payload}
+            return {...iS, ...action.payload}
            
 
         default:
@@ -94,29 +98,32 @@ export function updateBookCover(cover){
         payload: cover
     }
 }
+export function updateID(id){
+    return {
+        type: UPDATE_ID,
+        payload: id
+    }
+}
 export function updateBooks(books){
     return {
         type: UPDATE_BOOKS,
         payload: books
     }
 }
-// export function loggedInStatus(){
-//     return {
-//         type: LOGGED_IN,
-//         payload: true
-//     }
-// }
-export function clearState(){
+export function updateProfilePic(pic){
+    return {
+        type: PROFILE_PIC,
+        payload: pic
+    }
+}
+export function clearUser(){
     return {
         type: CLEAR_STATE,
         payload: {
-            loggedIn: false,
             username: '',
-            password: '',
             first_name: '',
             last_name: '',
             bio: '',
-            bookname: '',
-            profilePic: null}
+            profilePic: ''
     }
-}
+}}

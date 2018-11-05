@@ -14,7 +14,7 @@ constructor(props){
     render() {
     // console.log('home-----', this.props.books[0])
         
-        let mapBooks = this.props.books.map((book,i)=>{
+        let mapBooks = this.props.books.map((book)=>{
             return (
                <div key={book.id} className="homec"><Post key={book.id} book={book} /></div>                
             )

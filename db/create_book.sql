@@ -1,4 +1,4 @@
 insert into perbooks
-(name,image)
+(name,image,user_id)
 values
-($1,$2)
+($1,$2,$3)

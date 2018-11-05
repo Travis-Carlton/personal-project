@@ -8,11 +8,11 @@ import {updateBookName,updateBookCover,updateBooks} from '../../redux/reducer';
 class CreateEpic extends Component {
 
     createBook = ()=>{
-        const {bookname,bookcover} = this.props;
+        const {id,bookname,bookcover} = this.props;
         bookname==='' || bookcover==='' ? 
         alert('Please fill in the fields')
         : 
-        axios.post('/api/createbook', {bookname,bookcover}).then((res)=>{
+        axios.post('/api/createbook', { id, bookname,bookcover }).then((res)=>{
             this.props.history.push('/')
             // console.log(res.data)
         }).catch(err => console.log(err)).then(()=>{
@@ -39,10 +39,11 @@ class CreateEpic extends Component {
 }
 
 function mapStateToProps(iS){
-    const {bookname,bookcover} = iS;
+    const {id,bookname,bookcover} = iS;
     return {
         bookname,
-        bookcover
+        bookcover,
+        id
     }
 }
 

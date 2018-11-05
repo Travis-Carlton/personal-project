@@ -3,7 +3,8 @@ import './Login.scss';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
-import {updateUsername, updatePassword} from '../../redux/reducer';
+import { updateID, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic } from '../../redux/reducer';
+
 
 class Login extends Component{
     constructor(){
@@ -14,40 +15,47 @@ class Login extends Component{
         }
     }
 
-    lclUsername = (val)=>{
+    upUsername = (val)=>{
         this.setState({
             username: val
         })
     }
-    lclPassword = (val)=>{
+    upPassword = (val)=>{
         this.setState({
             password: val
         })
     }
 
     login = ()=>{
-        const {updateUsername} = this.props;
+        const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
         const {username, password} = this.state;
         axios.post('/api/login', {username, password})
         .then((res)=>{
-            console.info(res.data.user.username)
             const {user} = res.data;
+            // window.sessionStorage.setItem('user', JSON.stringify(user));
+            console.log('USER',res.data.user)
             updateUsername(user.username);
+            updateFirstName(user.first);
+            updateLastName(user.last);
+            updateBio(user.bio);
+            updateProfilePic(user.pic);
+            updateID(user.id);
             this.props.history.push('/');
-            console.log('--------',res.data.user.username);
-        }).catch(err => console.log(err))
+            console.log('user id ------',user.id)
+        })
+        .catch(err => console.log(err))
+        
     }
 
 render(){
-    // console.log('login props',this.props)
-    // const {updateUsername,updatePassword} = this.props;
+
     return (
         <div className="loginp">
                 <h1>Login</h1>
             <div className="loginc">
              
-                <label>Username: </label><input onChange={e=>this.lclUsername(e.target.value)} type="text" required/>
-                <label>Password: </label><input onChange={e=>this.lclPassword(e.target.value)} type="password" required/>
+                <label>Username: </label><input onChange={e=>this.upUsername(e.target.value)} type="text" required/>
+                <label>Password: </label><input onChange={e=>this.upPassword(e.target.value)} type="password" required/>
                 <button onClick={this.login}>Login</button>
             
             </div>
@@ -62,4 +70,4 @@ function mapStateToProps(iS){
     }
 }
 
-export default withRouter(connect(mapStateToProps, {updateUsername,updatePassword})(Login));
+export default withRouter(connect(mapStateToProps, { updateID, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic })(Login));

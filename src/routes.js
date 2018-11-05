@@ -5,6 +5,7 @@ import About from './components/About/About';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import CreateEpic from './components/CreateEpic/CreateEpic';
+import Profile from './components/Profile/Profile';
 
 export default (
     <Switch>
@@ -13,6 +14,7 @@ export default (
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={Signup}/>
         <Route path='/createepic' component={CreateEpic}/>
+        <Route path='/profile' component={Profile}/>
 
     </Switch>
 )

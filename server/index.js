@@ -22,7 +22,7 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        expires: 1000*60*2
+        expires: 1000*60*60*24*14
     }
   }));
   
@@ -34,12 +34,12 @@ app.post('/api/signup', (req,res)=>{
     console.log(req.body)
     const db = req.app.get('db');
     const saltRounds = 12;
-    const {username,password,first_name,last_name,bio,profile_pic} = req.body;
+    const {username,password,firstName,lastName,bio,profilePic} = req.body;
     bcrypt.hash(password,saltRounds).then(hash =>{
 
-        db.signup([username, hash, first_name, last_name, bio]).then(() => {
-            console.log()
-            req.session.user = { username };
+        db.signup([username, hash, firstName, lastName, bio, profilePic]).then((user) => {
+            // console.log(user);
+            req.session.user = {id: user[0].id, username, firstName, lastName, bio, profilePic };
             res.json({ user: req.session.user })
           }).catch(error => {
           console.error('error', error);
@@ -57,7 +57,15 @@ app.post('/api/login', (req,res)=>{
             bcrypt.compare(password,users[0].password).then(passwordsMatch => {
 
                 if (passwordsMatch) {
-                  req.session.user = { username: users[0].username };
+                  req.session.user = { 
+                      username: users[0].username, 
+                      first: users[0].first_name,
+                      last: users[0].last_name,
+                      bio: users[0].bio,
+                      pic: users[0].profile_pic,
+                      id: users[0].id
+                    };
+                    // console.log(req.session)
                   res.json({ user: req.session.user });
                   console.log('Youre logged in!')
                 } else {
@@ -71,8 +79,14 @@ app.post('/api/login', (req,res)=>{
     });
 });
 
+app.post('/api/logout', (req,res)=>{
+    req.session.destroy();
+    res.status(200).send('hello')
+});
+
 //////////////////////////
 
+//////////CompDidMounts
 app.get('/api/data', (req,res)=>{
     const db = req.app.get('db');
     // console.log(req)
@@ -83,9 +97,17 @@ app.get('/api/data', (req,res)=>{
 })
 
 
+app.get('/api/auth', controller.loggedIn)
+////////////////////////////
+
+///////////Book related calls
 app.post('/api/createbook', controller.createBook);
 app.delete(`/api/deleteBook`, controller.deleteBook);
+//////////////////////////////
 
+//////////profile related calls
+app.patch('/api/updatePic/:id', controller.updatePic)
+/////////////////////////////
 
 const path = require('path')
 app.get('*', (req, res)=>{
