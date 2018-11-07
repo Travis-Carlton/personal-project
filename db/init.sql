@@ -11,7 +11,7 @@ create table perposts
 (id serial primary key,
 likes int,
 dates text,
-image text,
+pimage text,
 user_id int references perusers (id),
 book_id int references perbooks (id))
 

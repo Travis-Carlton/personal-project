@@ -31,14 +31,14 @@ app.use(express.static(`${__dirname}/../build`));
 // signup and login //////////
 
 app.post('/api/signup', (req,res)=>{
-    console.log(req.body)
+    // console.log('request body----',req.body)
     const db = req.app.get('db');
     const saltRounds = 12;
     const {username,password,firstName,lastName,bio,profilePic} = req.body;
     bcrypt.hash(password,saltRounds).then(hash =>{
 
         db.signup([username, hash, firstName, lastName, bio, profilePic]).then((user) => {
-            // console.log(user);
+            // console.log('user info----',user);
             req.session.user = {id: user[0].id, username, firstName, lastName, bio, profilePic };
             res.json({ user: req.session.user })
           }).catch(error => {
@@ -49,7 +49,7 @@ app.post('/api/signup', (req,res)=>{
 });
 
 app.post('/api/login', (req,res)=>{
-    console.log('---------login', req.body)
+    // console.log('---------login', req.body)
     const {username,password} = req.body;
     const db = req.app.get('db');
     db.get_user([username]).then(users => {
@@ -98,11 +98,17 @@ app.get('/api/data', (req,res)=>{
 
 
 app.get('/api/auth', controller.loggedIn)
+app.get('/api/getusers', controller.getUsers)
 ////////////////////////////
 
 ///////////Book related calls
+app.get('/api/singleBook/:id', controller.singleBook);
 app.post('/api/createbook', controller.createBook);
 app.delete(`/api/deleteBook`, controller.deleteBook);
+//////////////////////////////
+
+///////////Page related calls
+app.post('/api/createpage', controller.createPage)
 //////////////////////////////
 
 //////////profile related calls

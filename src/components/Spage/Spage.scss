@@ -5,7 +5,7 @@ $back-sqr: rgba(128, 128, 128, 0.604);
 $text-shadow:  rgba(20, 25, 30, 0.81);
 
 
-.postp{
+.spagep{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,9 +17,9 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     background: rgba(90, 95, 110, 0.748);
     // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
     box-shadow: 15px 15px 10px $shadow;
-    animation: appearpost 1s ease-in-out 0s 1;
+    animation: appearspage 1s ease-in-out 0s 1;
        
-    @keyframes appearpost {
+    @keyframes appearspage {
         0% {
             transform: translate(-300px,0);
         }
@@ -31,13 +31,13 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         }
       }
 }
-.postc{
+.spagec{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    .postcc{
+    .spagecc{
         margin-bottom: 20px;
         font-size: 2rem;
         text-shadow: 5px 5px 1px $text-shadow;
@@ -80,7 +80,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
 }
 
 @media (min-width: 425px) and (max-width: 768px){
-    .postp{
+    .spagep{
         display: flex;
         flex-direction: row;
         justify-content: center;

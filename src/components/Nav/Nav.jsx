@@ -13,6 +13,7 @@ logout = ()=>{
     axios.post('/api/logout').then(()=>{
     // console.log('clicked')
         clearUser();
+        this.props.history.push('/');
         // window.sessionStorage.clear();
     })
 }
@@ -20,10 +21,10 @@ logout = ()=>{
 render(){
     return (
         <div className="navp">
-            <div className="navc"><Link className='navlinks' to='/'>LOGO !!!</Link></div>
+            <div className="navc"><Link className='navlinksL' to='/' ><img className='logoimg' src="/images/tccomiclogov1.1.png" alt="ghjkh"/></Link></div>
             <div className="navc">
                 {
-                    this.props.username ?
+                    this.props.lusername ?
                     <Link className='navlinks' to='/createepic'>Start an Epic !!!</Link>
                     :
                     null
@@ -31,13 +32,13 @@ render(){
                 <Link className='navlinks' to='/'>Home</Link>
                 <Link className='navlinks' to='/about'>About</Link>
                 {
-                    this.props.username ?
+                    this.props.lusername ?
                     <Link className='navlinks' to='/profile'>Profile</Link> 
                     :
                     <Link className='navlinks' to='/login'>Login</Link>
                 }
                 {
-                    this.props.username ?
+                    this.props.lusername ?
                     <div onClick={()=>this.logout()} className='navlinks'>Logout</div>
                     :
                     <Link className='navlinks' to='/signup'>Signup</Link> 
@@ -48,9 +49,9 @@ render(){
     )};
 };
 function mapStateToProps(iS){
-    const {username} = iS;
+    const {lusername} = iS;
     return {
-        username
+        lusername
     }
 }
 export default withRouter(connect(mapStateToProps, {clearUser})(Nav));

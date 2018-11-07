@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './Post.scss';
 import axios from 'axios';
-import {connect} from 'react-redux';
-import {updateBooks} from '../../redux/reducer';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateBooks } from '../../redux/reducer';
+import { Link, withRouter } from 'react-router-dom';
 
 class Post extends Component {
     constructor(){
@@ -21,9 +21,9 @@ class Post extends Component {
     
 
     deleteBook = ()=>{
-        const {username} = this.props;
-
-        !username?
+        const {lusername} = this.props;
+        //// need to send id to back to compare????
+        !lusername?
         alert("You need to be logged in to delete!")
         :
         axios.delete(`/api/deleteBook?booktodelete=${this.props.book.id}`).then(()=>{
@@ -36,13 +36,14 @@ class Post extends Component {
     
     render(){
         // console.log('----------post',this.props)
+        const { id, name, image } = this.props.book;
     return (
         <div className="postp">
             <div className="postc">
         
-                <div className='postcc'>{this.props.book.name}</div>
+                <div className='postcc'>{name}</div>
                 
-                <div><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={this.props.book.image} alt=""/></div>
+                <div><Link to={`/book/${id}/pages`} ><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={image} alt=""/></Link></div>
                 {this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}
                 
             </div>
@@ -51,9 +52,9 @@ class Post extends Component {
 };
 
 function mapStateToProps(iS){
-    const {username,books} = iS;
+    const {lusername,books} = iS;
     return {
-        username,
+        lusername,
         books
     }
 }

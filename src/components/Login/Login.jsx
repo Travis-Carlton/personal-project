@@ -29,6 +29,10 @@ class Login extends Component{
     login = ()=>{
         const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
         const {username, password} = this.state;
+        
+        !username || !password ?
+        alert('Missing fields') 
+        :
         axios.post('/api/login', {username, password})
         .then((res)=>{
             const {user} = res.data;

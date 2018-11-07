@@ -1,15 +1,17 @@
 const iState = {
     loggedIn: false,
-    id: 0,
-    username: '',
+    userId: 0,
+    lusername: '',
     password: '',
     first_name: '',
     last_name: '',
     bio: '',
+    bookId: 0,
     bookname: '',
     bookcover: '',
     books: [],
-    profilePic: ''
+    profilePic: '',
+    userForPosts: ''
 };
 
 const UPDATE_USERNAME = 'UPDATE_USERNAME';
@@ -21,14 +23,16 @@ const UPDATE_BOOKNAME = 'UPDATE_BOOKNAME';
 const UPDATE_BOOKCOVER = 'UPDATE_BOOKCOVER';
 const UPDATE_BOOKS = 'UPDATE_BOOKS';
 const UPDATE_ID = 'UPDATE_ID';
+const UPDATE_BOOK_ID = 'UPDATE_BOOK_ID';
 const CLEAR_STATE = 'CLEAR_STATE';
 const PROFILE_PIC = 'PROFILE_PIC';
+const USER_FOR_POSTS = 'USER_FOR_POSTS';
 
 
 export default function reducer(iS = iState, action){
     switch (action.type) {
         case UPDATE_USERNAME:
-            return {...iS, username: action.payload}
+            return {...iS, lusername: action.payload}
         case UPDATE_PASSWORD:
             return {...iS, password: action.payload}
         case UPDATE_FIRST_NAME:
@@ -44,9 +48,13 @@ export default function reducer(iS = iState, action){
         case UPDATE_BOOKS:
             return {...iS, books: action.payload}
         case UPDATE_ID:
-            return {...iS, id: action.payload}
+            return {...iS, userId: action.payload}
+        case UPDATE_BOOK_ID:
+            return {...iS, bookId: action.payload}
         case PROFILE_PIC:
             return {...iS, profilePic: action.payload}
+        case USER_FOR_POSTS:
+            return {...iS, userForPosts: action.payload}
         case CLEAR_STATE:
             return {...iS, ...action.payload}
            
@@ -104,6 +112,12 @@ export function updateID(id){
         payload: id
     }
 }
+export function updateBookID(id){
+    return {
+        type: UPDATE_BOOK_ID,
+        payload: id
+    }
+}
 export function updateBooks(books){
     return {
         type: UPDATE_BOOKS,
@@ -116,11 +130,17 @@ export function updateProfilePic(pic){
         payload: pic
     }
 }
+export function updateUserForPosts(user){
+    return {
+        type: USER_FOR_POSTS,
+        payload: user
+    }
+}
 export function clearUser(){
     return {
         type: CLEAR_STATE,
         payload: {
-            username: '',
+            lusername: '',
             first_name: '',
             last_name: '',
             bio: '',
