@@ -44,11 +44,34 @@ class CreateEpic extends Component {
     
 
     uploadWidget = () => {
-        !this.props.lusername?
+        !this.props.userId?
         alert('Need to be logged in to post')
         :
         window.cloudinary.openUploadWidget(
-     { cloud_name: 'dgonb819t', upload_preset: 'shansi3g', folder: 'personalProject', maxFiles: 2, autoMinimize: true, showCompletedButton: true },
+     { cloud_name: 'dgonb819t', 
+     upload_preset: 'shansi3g', 
+     folder: 'personalProject', 
+     maxFiles: 2, 
+     autoMinimize: true, 
+     showCompletedButton: true, 
+     styles:{
+        palette: {
+          window: "#363636",
+          windowBorder: "#90A0B3",
+          tabIcon: "#0078FF",
+          menuIcons: "#FFFFFF",
+          textDark: "#000000",
+          textLight: "#FFFFFF",
+          link:  "#0078FF",
+          action:  "#000000",
+          inactiveTabIcon: "#FFFFFF",
+          error: "#F44235",
+          inProgress: "#0078FF",
+          complete: "#20B832",
+          sourceBg: "#5a5f6e"
+        },
+     },
+    },
           (error, result) => {
             if (result.info.secure_url) {
             //   This will Update gallery state with newly uploaded image
