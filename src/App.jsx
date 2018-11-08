@@ -30,7 +30,7 @@ getUser = ()=>{
   const {updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
   axios.get('/api/auth').then(res=>{  
     const user = res.data;
-    console.log('appjs-------',res.data);
+    // console.log('appjs-------',res.data);
     if(user.username){
       updateUsername(user.username);
       updateFirstName(user.first);

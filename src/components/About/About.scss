@@ -1,5 +1,7 @@
 $shadow: rgba(0, 0, 0, 0.33);
-$back-sqr: rgba(128, 128, 128, 0.604);
+$back-sqr: rgba(90, 95, 110, 0.748);
+$text-shadow:  rgba(20, 25, 30, 0.81);
+
 
 
 .aboutp{
@@ -39,15 +41,16 @@ $back-sqr: rgba(128, 128, 128, 0.604);
 
     .abouth1{
         font-size: 3rem;
-        text-shadow: 2px 2px 1px white;
-
+        text-shadow: 5px 5px 1px $text-shadow;
+        color: white;
     }
     p{
         text-align: center;
-        font-size: 1.25rem;
-        margin-bottom: 120px;
-        text-shadow: 2px 2px 1px white;
-
+        font-size: 24px;
+        padding: 0 30px;
+        margin-bottom: 60px;
+        text-shadow: 5px 5px 1px $text-shadow;
+        color: white;
     }
 }
 

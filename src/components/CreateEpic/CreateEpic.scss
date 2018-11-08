@@ -2,7 +2,8 @@
 
 
 $shadow: rgba(0, 0, 0, 0.33);
-$back-sqr: rgba(128, 128, 128, 0.604);
+$back-sqr:rgba(90, 95, 110, 0.748);
+$text-shadow:  rgba(20, 25, 30, 0.81);
 
 
 .createepicp{
@@ -32,20 +33,29 @@ $back-sqr: rgba(128, 128, 128, 0.604);
         }
       }
 }
-.createepicc{
+.createepicc, .upload{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-shadow: 3px 3px 2px $shadow;
+    text-align: center;
+    font-size: 20px;
 
     .createh1{
         font-size: 3rem;
-        text-shadow: 2px 2px 1px white;
+        text-shadow: 5px 5px 1px $text-shadow;
         text-align: center;
+        color: rgb(255, 255, 255);
+    }
+    .createspan{
+        font-size: 28px;
+        text-shadow: 5px 5px 1px $text-shadow;
+        color: white;
     }
     input{
         margin-bottom: 10px; 
+        text-align: center;
         border: none;
         border-top-right-radius: 5px 5px;
         border-bottom-left-radius: 5px 5px;
@@ -57,8 +67,9 @@ $back-sqr: rgba(128, 128, 128, 0.604);
         font-size: 2rem;
         font-family: 'Permanent Marker', cursive;
     }
-    .createButton{
+    .upload-button{
         margin-top: 20px;
+        margin-bottom: 20px;
         font-size: 20px;
         background: rgba(0, 0, 0, 0.858);
         box-shadow: 2px 2px 1px white;
@@ -71,16 +82,14 @@ $back-sqr: rgba(128, 128, 128, 0.604);
         height: 30px;
         transition: .8s;
     }
-     .createButton:hover{
+     .upload-button:hover{
                 width: 180px;
                 height: 40px;
                 // font-size: 
             }
-    // p{
-    //     margin-bottom: 250px;
-    //     text-shadow: 2px 2px 1px white;
-
-    // }
+    .upload{
+                color: rgba(255, 255, 255, 0.486);
+            }
 }
 
 @media (min-width: 425px) and (max-width: 768px){

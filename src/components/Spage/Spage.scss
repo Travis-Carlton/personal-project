@@ -76,6 +76,47 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             height: 20px;
             transition: .8s;
                 }
+    .newpage{
+        width: 200px;
+        height: 40px;
+        font-size: 1.5rem;
+        margin: 10px 50px; 
+        border: none;
+        border-top-right-radius: 5px 5px;
+        border-bottom-left-radius: 5px 5px;
+        background: rgba(80, 80, 80, 0.639);
+        color: white;
+        box-shadow: 2px 2px 1px white;
+        font-family: 'Permanent Marker', cursive;
+    }
+    .upload-button{
+        width: 200px;
+        height: 30px;
+        margin: 0 100px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.858);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 10px 10px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        transition: .8s;
+    }
+    .upload-button:hover{
+        height: 40px;
+        width: 220px;
+    }
+    .newpagediv{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .upload{
+        color: rgba(255, 255, 255, 0.486);
+    }
+    
 
 }
 

@@ -71,8 +71,11 @@ render(){
                 <label>Confirm password: </label><input onChange={e=>this.handleChange('cPass',e.target.value)} type="password" maxLength='15' minLength='5' required/>
                 <label>First Name: </label><input onChange={e=>this.handleChange('firstName',e.target.value)} type="text"/>
                 <label>Last Name: </label><input onChange={e=>this.handleChange('lastName',e.target.value)} type="text"/>
+                </div>
+                <div className='signcc'>
                 <label>Bio: </label><textarea onChange={e=>this.handleChange('bio',e.target.value)} cols="50" rows="2"></textarea>
                 <label>Profile Picture: </label><textarea onChange={e=>this.handleChange('profilePic',e.target.value)} cols='50' rows='1'></textarea>                
+                <br/>
                 <button onClick={this.signUp}>SignUp</button>
                 
                 </div>                

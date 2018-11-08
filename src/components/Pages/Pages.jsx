@@ -14,9 +14,14 @@ class Pages extends Component {
     }
 
     componentDidMount(){
+        
+        this.getPages()
+    }
+
+    getPages = () => {
         const {bookid} = this.props.match.params;
         axios.get(`/api/singleBook/${bookid}`).then(res=>{
-            console.log('-----------dataaaaa',res.data[0])
+            // console.log('-----------dataaaaa',res.data[0])
             this.setState({
                 pages: res.data
             })
@@ -28,7 +33,7 @@ class Pages extends Component {
         let mapPages = this.state.pages.map((page)=>{
             // console.log('-----pages',page)
             return (
-               <div key={page.id} className="pagesc"><Spage key={page.id} username={page.username} pimage={page.pimage}></Spage></div>                
+               <div key={page.id} className="pagesc"><Spage key={page.id} username={page.username} pimage={page.pimage} ></Spage></div>                
             )
         })
         return (
@@ -36,7 +41,7 @@ class Pages extends Component {
                 
                     {/* {this.state.pages?<img src={this.state.pages.image} alt=""/>:null} */}
                     {mapPages}
-                    <Spage></Spage>
+                    <Spage getPages={this.getPages.bind(this)}></Spage>
             </div>
         );
     }

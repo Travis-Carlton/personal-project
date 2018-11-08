@@ -109,6 +109,7 @@ app.delete(`/api/deleteBook`, controller.deleteBook);
 
 ///////////Page related calls
 app.post('/api/createpage', controller.createPage)
+app.post('/api/createnextpage', controller.createNextPage)
 //////////////////////////////
 
 //////////profile related calls

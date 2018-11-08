@@ -21,10 +21,11 @@ class Post extends Component {
     
 
     deleteBook = ()=>{
-        const {lusername} = this.props;
+        const {userId,lusername,book} = this.props;
+        console.log('-------',this.props)
         //// need to send id to back to compare????
-        !lusername?
-        alert("You need to be logged in to delete!")
+        lusername !== 'TCaptain' && userId !== book.user_id?
+        alert("Only the creator can delete their work")
         :
         axios.delete(`/api/deleteBook?booktodelete=${this.props.book.id}`).then(()=>{
             axios.get('/api/data').then(res=>{
@@ -52,8 +53,9 @@ class Post extends Component {
 };
 
 function mapStateToProps(iS){
-    const {lusername,books} = iS;
+    const {userId,lusername,books} = iS;
     return {
+        userId,
         lusername,
         books
     }

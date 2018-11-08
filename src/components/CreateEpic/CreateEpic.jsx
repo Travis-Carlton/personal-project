@@ -9,27 +9,26 @@ class CreateEpic extends Component {
     constructor(){
         super();
         this.state = {
-            firstPage: ''
+            // bookname: '',
+            startingImages: []
         }
     }
 
     createBook = ()=>{
-        const {firstPage} = this.state;
-        const {userId,bookname,bookcover} = this.props;
-        !bookname || !bookcover || !firstPage ? 
+        const {startingImages} = this.state;
+        const {userId,bookname} = this.props;
+        const bookcover = startingImages[0];
+        const firstPage = startingImages[1];
+        userId === 0 || !bookname || !bookcover || !firstPage ? 
         alert('Please fill in the fields')
         : 
         axios.post('/api/createbook', { userId, bookname, bookcover }).then(()=>{
             axios.get('/api/data').then(res=>{
-                console.log('///////',res.data)
-                console.log('--------',res.data[res.data.length-1].id)
+                // console.log('///////',res.data)
+                // console.log('--------',res.data[res.data.length-1].id)
                 const {id} = res.data[res.data.length-1];
                 this.props.updateBooks(res.data);
                 axios.post('/api/createpage', { firstPage, userId, id  })
-                // .then((responsepage)=>{
-                //     // console.log('`````````',responsepage.data.postUser)
-                //     updateUserForPosts(responsepage.data.postUser.username)
-                // })
         }).then((res)=>{
             this.props.history.push('/')
         }).catch(err => console.log(err))
@@ -42,17 +41,60 @@ class CreateEpic extends Component {
         })
     }
 
+    
+
+    uploadWidget = () => {
+        window.cloudinary.openUploadWidget(
+     { cloud_name: 'dgonb819t', upload_preset: 'shansi3g', folder: 'personalProject', maxFiles: 2, autoMinimize: true, showCompletedButton: true },
+          (error, result) => {
+            if (result.info.secure_url) {
+            //   This will Update gallery state with newly uploaded image
+              let myStartingImages = [...this.state.startingImages].concat(result.info.secure_url)
+              this.setState({ startingImages: myStartingImages })
+              ///////////////////
+            //   var widget = window.cloudinary.createUploadWidget({ 
+            //     cloudName: "demo", uploadPreset: "preset1"}, (error, result) => { });
+            //   widget.close({quiet: true});
+            }
+         })
+         
+     }
+    //  LINK TO WIDGET DOCS: https://cloudinary.com/documentation/upload_widget
+     
+
     render() {
-        const {updateBookName,updateBookCover} = this.props;
+        const {updateBookName} = this.props;
         // console.log(this.props.bookname)
         return (
             <div className="createepicp">
                 <div className="createepicc"> 
                 <h1 className='createh1'>Start your<br/>Epic</h1>
-                <span>Title: </span><input onChange={e=>updateBookName(e.target.value)} type="text" required/>
-                <span>Upload Cover Image: </span><input onChange={e=>updateBookCover(e.target.value)} type='text' required/>
-                <span>Upload First Page: </span><input onChange={e=>this.handleChange('firstPage', e.target.value)} type='text' required/>
-                <button className='createButton' onClick={this.createBook}>Start Epic</button>
+                <span className='createspan'>Title: </span><input onChange={e=>updateBookName(e.target.value)} type="text" required/>
+                {/* <span>Upload Cover Image: </span><input onChange={e=>updateBookCover(e.target.value)} type='text' required/>
+                <span>Upload First Page: </span><input onChange={e=>this.handleChange('firstPage', e.target.value)} type='text' required/> */}
+                   {this.state.startingImages.length<2?
+                   <div className="upload">
+                    <button onClick={this.uploadWidget} className="upload-button">
+                    Add Images
+                    </button>
+                    <div>The first page you upload will <br/>be the bookcover and the second <br/> will be the first page of the book</div>
+                    </div>
+                    :
+                    <button className='upload-button' onClick={this.createBook}>Start Epic</button>
+                    
+                } 
+
+
+
+                 {/* <div className="upload">
+                     <button onClick={this.uploadWidget} className="upload-button">
+                     Add Images
+                     </button>
+                 </div>
+                <button className='upload-button' onClick={this.createBook}>Start Epic</button>
+                 */}
+
+
                 </div>
             </div>
         );
@@ -60,10 +102,9 @@ class CreateEpic extends Component {
 }
 
 function mapStateToProps(iS){
-    const {userId,bookId,bookname,bookcover} = iS;
+    const {userId,bookId,bookname} = iS;
     return {
         bookname,
-        bookcover,
         userId,
         bookId,
         

@@ -72,6 +72,21 @@ module.exports = {
           res.status(500).json({ message: ' in createPage '})
         });
     },
+    createNextPage: (req,res)=>{
+        // console.log(req.body)
+        const db = req.app.get('db');
+        console.log('-------createPage', req.body)
+        const { nextPage, userId, bookid } = req.body;
+        db.create_page([ null, null, nextPage, userId, bookid ]).then((response)=>{
+            console.log('RESSSSSSS',response[0])
+
+           res.status(200).json({postUser: response[0]})
+        })
+        .catch(error => {
+          console.error('error in  create page', error);
+          res.status(500).json({ message: ' in createNextPage '})
+        });
+    },
 
 
 ////////////profile functions

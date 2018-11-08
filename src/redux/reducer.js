@@ -140,6 +140,7 @@ export function clearUser(){
     return {
         type: CLEAR_STATE,
         payload: {
+            userId: '',
             lusername: '',
             first_name: '',
             last_name: '',
