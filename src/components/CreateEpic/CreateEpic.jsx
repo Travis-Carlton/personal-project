@@ -44,6 +44,9 @@ class CreateEpic extends Component {
     
 
     uploadWidget = () => {
+        !this.props.lusername?
+        alert('Need to be logged in to post')
+        :
         window.cloudinary.openUploadWidget(
      { cloud_name: 'dgonb819t', upload_preset: 'shansi3g', folder: 'personalProject', maxFiles: 2, autoMinimize: true, showCompletedButton: true },
           (error, result) => {

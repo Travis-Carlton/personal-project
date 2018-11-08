@@ -72,9 +72,12 @@ class Spage extends Component {
        
     // }
 
+    
     uploadWidget = () => {
         // console.log('+++++++',window)
-
+        !this.props.lusername?
+        alert('Need to be logged in to post')
+        :
         window.cloudinary.openUploadWidget(
      { cloud_name: 'dgonb819t', upload_preset: 'shansi3g', folder: 'personalProject', multiple: 'false', autoMinimize: true, showCompletedButton: true },
           (error, result) => {
