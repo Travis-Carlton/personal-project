@@ -38,7 +38,7 @@ submitNewPic = () => {
     const {userId, updateProfilePic} = this.props;
     // console.log('check', uImage)
     axios.patch(`/api/updatePic/${userId}`, {uImage}).then((res)=>{
-        // console.log('/////----', res.data)
+        console.log('/////----', res.data)
         updateProfilePic(res.data.image);
         // this.props.history.push('/profile');
         this.cancelClicked();

@@ -3,7 +3,7 @@ import './Spage.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
 // import { updateBooks } from '../../redux/reducer';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Spage extends Component {
     constructor(){
@@ -40,20 +40,24 @@ class Spage extends Component {
     createPage = ()=>{  
 
         const nextPage = this.state.nextPage[0];
-        const {userId, getPages} = this.props;
+        const {userId, getPages, lusername} = this.props;
         const {bookid} = this.props.match.params
         // axios.get('/api/data').then(res=>{
 
         // const {id} = res.data[res.data.length-1];
         // this.props.updateBooks(res.data);
-        !this.props.lusername?
+        !lusername?
         alert('Need to be logged in to post')
         :
-        axios.post('/api/createnextpage', { nextPage, userId, bookid  }).then(res=>{
+        axios.post('/api/sendNewPage', { lusername, nextPage, userId, bookid }).then(()=>{
+        
+        axios.post('/api/createnextpage', { nextPage, userId, bookid }).then(res=>{
             // console.log(res)
+            this.setState({ nextPage: []});
             getPages()
             // this.props.history.push(window.location.pathname);
             // axios.get(`/api/singleBook/${bookid}`)
+            })
         })
     }
     
@@ -75,7 +79,7 @@ class Spage extends Component {
     
     uploadWidget = () => {
         // console.log('+++++++',window)
-        !this.props.lusername?
+        !this.props.userId?
         alert('Need to be logged in to post')
         :
         window.cloudinary.openUploadWidget(
@@ -117,7 +121,8 @@ class Spage extends Component {
 
     
     render(){
-        // console.log('```````````SPAGES',window)
+        console.log('```````````SPAGES', this.props.match)
+
     return (
         <div className="spagep">
             <div className="spagec">
@@ -126,7 +131,7 @@ class Spage extends Component {
                 
                 <div>{this.props.pimage
                 ?
-                <img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={this.props.pimage} alt=""/>
+               <Link to='/' ><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={this.props.pimage} alt=""/></Link>
                 :
                 <div>
                     <div className="upload">

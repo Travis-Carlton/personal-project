@@ -94,10 +94,13 @@ module.exports = {
         // console.log('PARAMS', req.params)
         // console.log('BODY', req.body)
         const db = req.app.get('db');
-        const {userId} = req.params;
+        const {id} = req.params;
         const {uImage} = req.body;
-        db.edit_profile_pic([uImage,userId]).then(()=>{
-            res.status(200).json({image: uImage})
+        db.edit_profile_pic([uImage,id]).then((response)=>{
+            req.session.user.pic = response[0].profile_pic,
+            res.status(200).json({image: response[0].profile_pic})
+            // console.log('', response[0].profile_pic)
+            
         })
 
     }

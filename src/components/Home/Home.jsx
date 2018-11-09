@@ -19,11 +19,12 @@ constructor(props){
                <div key={book.id} className="homec"><Post key={book.id} book={book} /></div>                
             )
         })
-        // console.log(mapBooks)
+        
 
         return (
             <div className="homep">
                {/* <div className='leftcover'></div> */}
+               
                {mapBooks}
                {/* <div className='rightcover'></div> */}
             </div>

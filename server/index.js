@@ -4,9 +4,12 @@ const massive = require('massive');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
+const nodemailer = require('nodemailer');
+
 
 // controllers
 const controller = require('./controller.js');
+const creds = require('../config/config.js');
 
 massive(process.env.CONNECTION_STRING).then(database => {
     app.set('db', database);
@@ -83,6 +86,131 @@ app.post('/api/logout', (req,res)=>{
     req.session.destroy();
     res.status(200).send('hello')
 });
+
+//////////////////////////
+
+////////// Nodemailer
+
+const transport = {
+  host: 'smtp.gmail.com',
+  auth: {
+    user: creds.USER,
+    pass: creds.PASS
+  }
+}
+
+const transporter = nodemailer.createTransport(transport)
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Server is ready to take messages');
+  }
+});
+
+
+app.post('/api/send', (req, res, next) => {
+    var name = req.body.name
+    var email = req.body.email
+    var message = req.body.message
+    var content = `name: ${name} \n email: ${email} \n message: ${message} `
+  
+    var mail = {
+      from: name,
+      to: 'tc.comic.site@gmail.com',  //Change to email address that you want to receive messages on
+      subject: 'New Message from Contact Form',
+      text: content
+    }
+  
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        res.json({
+          msg: 'fail'
+        })
+      } else {
+        res.json({
+          msg: 'success'
+        })
+      }
+    })
+  })
+
+  app.post('/api/sendNewUser', (req, res, next) => {
+      console.log(req.body)
+    let { username, firstName, lastName, bio, profilePic } = req.body;
+    let content = `username: ${username} \n name: ${firstName + ' ' + lastName}  \n bio: ${bio} \n profile pic: ${profilePic} `
+  
+    let mail = {
+      from: firstName + ' ' + lastName,
+      to: 'tc.comic.site@gmail.com',  //Change to email address that you want to receive messages on
+      subject: 'New User at TCCOMIC.com',
+      text: content
+    }
+  
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        res.json({
+          msg: 'fail'
+        })
+      } else {
+        res.json({
+          msg: 'success'
+        })
+      }
+    })
+  })
+
+  app.post('/api/sendNewBook', (req, res, next) => {
+    console.log(req.body)
+  let { userId, bookname, bookcover, firstPage } = req.body;
+  let content = `user id: ${userId} \n bookname: ${bookname}  \n bookcover: ${bookcover} \n first page: ${firstPage} `
+
+  let mail = {
+    from: userId,
+    to: 'tc.comic.site@gmail.com',  //Change to email address that you want to receive messages on
+    subject: 'New Book at TCCOMIC.com',
+    text: content
+  }
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: 'fail'
+      })
+    } else {
+      res.json({
+        msg: 'success'
+      })
+    }
+  })
+})
+
+app.post('/api/sendNewPage', (req, res, next) => {
+    console.log(req.body)
+  let { lusername, nextPage, userId, bookid } = req.body;
+  let content = `username: ${lusername} \n user id: ${userId} \n next page: ${nextPage}  \n book id: ${bookid} `
+
+  let mail = {
+    from: lusername,
+    to: 'tc.comic.site@gmail.com',  //Change to email address that you want to receive messages on
+    subject: 'New Page at TCCOMIC.com',
+    text: content
+  }
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: 'fail'
+      })
+    } else {
+      res.json({
+        msg: 'success'
+      })
+    }
+  })
+})
+
 
 //////////////////////////
 

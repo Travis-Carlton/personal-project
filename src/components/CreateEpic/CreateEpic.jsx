@@ -22,16 +22,21 @@ class CreateEpic extends Component {
         userId === 0 || !bookname || !bookcover || !firstPage ? 
         alert('Please fill in the fields')
         : 
-        axios.post('/api/createbook', { userId, bookname, bookcover }).then(()=>{
-            axios.get('/api/data').then(res=>{
-                // console.log('///////',res.data)
-                // console.log('--------',res.data[res.data.length-1].id)
-                const {id} = res.data[res.data.length-1];
-                this.props.updateBooks(res.data);
-                axios.post('/api/createpage', { firstPage, userId, id  })
-        }).then((res)=>{
-            this.props.history.push('/')
-        }).catch(err => console.log(err))
+        axios.post('/api/sendNewBook', {userId,bookname,bookcover,firstPage}).then(()=>{
+
+          axios.post('/api/createbook', { userId, bookname, bookcover }).then(()=>{
+                axios.get('/api/data').then(res=>{
+                    // console.log('///////',res.data)
+                    // console.log('--------',res.data[res.data.length-1].id)
+                    const {id} = res.data[res.data.length-1];
+                    this.props.updateBooks(res.data);
+                    axios.post('/api/createpage', { firstPage, userId, id  })
+            }).then((res)=>{
+                this.setState({startingImages: []});
+                this.props.history.push('/');
+            }).catch(err => console.log(err))
+        })
+
         })
     }
 

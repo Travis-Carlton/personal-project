@@ -4,7 +4,7 @@ import axios from 'axios';
 import routes from './routes';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic } from './redux/reducer';
+import { updateID, updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic } from './redux/reducer';
 
 
 import Nav from './components/Nav/Nav';
@@ -27,16 +27,17 @@ componentDidMount(){
   }
 
 getUser = ()=>{
-  const {updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
+  const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
   axios.get('/api/auth').then(res=>{  
     const user = res.data;
-    // console.log('appjs-------',res.data);
+    // console.log('appjs-------',user);
     if(user.username){
       updateUsername(user.username);
       updateFirstName(user.first);
       updateLastName(user.last);
       updateBio(user.bio);
       updateProfilePic(user.pic);
+      updateID(user.id)
   }
 })
 }
@@ -50,6 +51,8 @@ getData = ()=>{
 }
 
   render() {
+    // console.log('------', this.props.userId)
+
     return (
       <div className="App">
         <div className="background-image">
@@ -62,10 +65,11 @@ getData = ()=>{
 }
 
 function mapStateToProps(iS){
-  const {books} = iS;
+  const {books,userId} = iS;
   return {
-    books
+    books,
+    userId
   }
 }
 
-export default withRouter(connect(mapStateToProps, {updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic })(App));
+export default withRouter(connect(mapStateToProps, {updateID, updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic })(App));

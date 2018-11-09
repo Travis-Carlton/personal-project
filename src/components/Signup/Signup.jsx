@@ -31,6 +31,8 @@ signUp = ()=>{
     alert('Password fields dont match')
     :
     axios.get(`/api/getusers?username=${username}`).then(()=>{
+        axios.post('/api/sendNewUser', {username,firstName,lastName,bio,profilePic})
+    }).then(()=>{
         axios.post('/api/signup', {username,password,firstName,lastName,bio,profilePic}).then((res) => {
             // console.log('/////////---------',res.data)
             // const {user} = res.data;
