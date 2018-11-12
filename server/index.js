@@ -5,7 +5,12 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
+const app = express();
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 
+// const server = require('http').createServer()
+// const io = require('socket.io')(server)
 
 // controllers
 const controller = require('./controller.js');
@@ -17,7 +22,6 @@ massive(process.env.CONNECTION_STRING).then(database => {
     console.log('error with massive', error);
 });
 
-const app = express();
 app.use(bP.json());
 
 app.use(session({
@@ -31,6 +35,35 @@ app.use(session({
   
 app.use(express.static(`${__dirname}/../build`));
 
+///////// Sockets.io  /////////
+
+io.sockets.on('connection', (socket) =>{
+    console.log('user connected')
+
+    socket.join('cool')
+
+    socket.on('message', (msg) => {
+        console.log(msg)
+        const db = app.get('db');
+        const {message, userId, lusername, pageid} = msg;
+
+
+        db.create_comment([userId,pageid,message,lusername]).then(() => {
+        io.in('cool').emit('messageFromServer', msg);}
+        )
+    })
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected')
+    })
+})
+
+server.listen(4001,()=>{
+    console.log('listening on *:4001 🦖');
+})
+
+///////////////////////////////
+
 // signup and login //////////
 
 app.post('/api/signup', (req,res)=>{
@@ -38,11 +71,16 @@ app.post('/api/signup', (req,res)=>{
     const db = req.app.get('db');
     const saltRounds = 12;
     const {username,password,firstName,lastName,bio,profilePic} = req.body;
+    let profilePicture = ()=>{
+        if(profilePic.length<7){
+            return 'https://d28sdlh8venwby.cloudfront.net/assets/missing-profile-326c4759d9ad53fa5bc720276bfe604c25a0c53c37b314eeef1bfa2cc1c5c514.png'
+        } else return profilePic
+    }
     bcrypt.hash(password,saltRounds).then(hash =>{
 
-        db.signup([username, hash, firstName, lastName, bio, profilePic]).then((user) => {
+        db.signup([username, hash, firstName, lastName, bio, profilePicture]).then((user) => {
             // console.log('user info----',user);
-            req.session.user = {id: user[0].id, username, firstName, lastName, bio, profilePic };
+            req.session.user = {id: user[0].id, username, firstName, lastName, bio, profilePicture };
             res.json({ user: req.session.user })
           }).catch(error => {
           console.error('error', error);
@@ -223,6 +261,12 @@ app.get('/api/data', (req,res)=>{
         res.status(200).send(response)
     })
 })
+
+app.get(`/api/:pageid/prevcomments`, controller.prevComments)
+
+
+// console.log(Date())
+
 
 
 app.get('/api/auth', controller.loggedIn)

@@ -61,9 +61,8 @@ module.exports = {
     createPage: (req,res)=>{
         // console.log(req.body)
         const db = req.app.get('db');
-        // console.log('-------createPage', req.body)
-        const { firstPage, userId, id } = req.body;
-        db.create_page([ null, null, firstPage, userId, id ]).then((response)=>{
+        const { firstPage, userId, id, uDT} = req.body;
+        db.create_page([ null, uDT, firstPage, userId, id ]).then((response)=>{
             // console.log('RESSSSSSS',response[0])
            res.status(200).json({postUser: response[0]})
         })
@@ -76,8 +75,8 @@ module.exports = {
         // console.log(req.body)
         const db = req.app.get('db');
         console.log('-------createPage', req.body)
-        const { nextPage, userId, bookid } = req.body;
-        db.create_page([ null, null, nextPage, userId, bookid ]).then((response)=>{
+        const { nextPage, userId, bookid, uDT } = req.body;
+        db.create_page([ null, uDT, nextPage, userId, bookid ]).then((response)=>{
             console.log('RESSSSSSS',response[0])
 
            res.status(200).json({postUser: response[0]})
@@ -87,6 +86,19 @@ module.exports = {
           res.status(500).json({ message: ' in createNextPage '})
         });
     },
+
+
+
+////////////// comments
+    prevComments: (req,res)=>{
+        const db = req.app.get('db');
+        const {pageid} = req.params;
+        db.get_previous_comments([pageid]).then((response)=>{
+            // console.log(response)
+            res.status(200).send(response)
+        })      
+    },
+/////////////////////////////
 
 
 ////////////profile functions
@@ -103,7 +115,7 @@ module.exports = {
             
         })
 
-    }
+    },
 
 
 }

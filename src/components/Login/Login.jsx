@@ -37,7 +37,7 @@ class Login extends Component{
         .then((res)=>{
             const {user} = res.data;
             // window.sessionStorage.setItem('user', JSON.stringify(user));
-            console.log('USER',res.data.user)
+            // console.log('USER',res.data.user)
             updateUsername(user.username);
             updateFirstName(user.first);
             updateLastName(user.last);
@@ -45,7 +45,7 @@ class Login extends Component{
             updateProfilePic(user.pic);
             updateID(user.id);
             this.props.history.push('/');
-            console.log('user id ------',user.id)
+            // console.log('user id ------',user.id)
         })
         .catch(err => console.log(err))
         

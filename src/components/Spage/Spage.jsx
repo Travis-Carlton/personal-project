@@ -37,11 +37,37 @@ class Spage extends Component {
           })
       }
 
+      getTime = ()=>{
+        let time = Date();
+        let nT = time.split(' ');
+        let hours = nT[4].split(':')
+        if(hours[0]<=12){
+            hours = hours.join(':');
+            hours+= "am";
+            let dT = nT.splice(0,6);
+            dT[4] = hours;
+            dT = dT.join(' ')
+            // dT = JSON.stringify(dT)
+            return dT
+        } else if(hours[0]>12){
+            hours[0] -= 12;
+            hours[0] = JSON.stringify(hours[0])
+            hours = hours.join(':')
+            hours += "pm"
+            let dT = nT.splice(0,6)
+            dT[4] = hours
+            dT = dT.join(' ')
+            // dT = JSON.stringify(dT)
+            return dT
+        }
+    }
+
     createPage = ()=>{  
 
         const nextPage = this.state.nextPage[0];
         const {userId, getPages, lusername} = this.props;
-        const {bookid} = this.props.match.params
+        const {bookid} = this.props.match.params;
+        let uDT = this.getTime();
         // axios.get('/api/data').then(res=>{
 
         // const {id} = res.data[res.data.length-1];
@@ -51,7 +77,7 @@ class Spage extends Component {
         :
         axios.post('/api/sendNewPage', { lusername, nextPage, userId, bookid }).then(()=>{
         
-        axios.post('/api/createnextpage', { nextPage, userId, bookid }).then(res=>{
+        axios.post('/api/createnextpage', { uDT, nextPage, userId, bookid }).then(res=>{
             // console.log(res)
             this.setState({ nextPage: []});
             getPages()
@@ -118,10 +144,11 @@ class Spage extends Component {
          }) 
         
      }
+    
 
     
     render(){
-        console.log('```````````SPAGES', this.props.match)
+        // console.log('```````````SPAGES', this.props.pageId)
 
     return (
         <div className="spagep">
@@ -131,7 +158,7 @@ class Spage extends Component {
                 
                 <div>{this.props.pimage
                 ?
-               <Link to='/' ><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={this.props.pimage} alt=""/></Link>
+               <Link to={`/page/${this.props.pageId}/comments`} ><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={this.props.pimage} alt=""/></Link>
                 :
                 <div>
                     <div className="upload">
@@ -168,5 +195,8 @@ function mapStateToProps(iS){
     }
 }
 
+
 export default withRouter(connect(mapStateToProps)(Spage));
+
+
 

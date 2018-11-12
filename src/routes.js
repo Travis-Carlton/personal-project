@@ -8,7 +8,7 @@ import CreateEpic from './components/CreateEpic/CreateEpic';
 import Profile from './components/Profile/Profile';
 import Pages from './components/Pages/Pages';
 import Contact from './components/Contact/Contact';
-import Comment from './components/Comment/Comment';
+import Comments from './components/Comments/Comments';
 
 export default (
     <Switch>
@@ -20,7 +20,7 @@ export default (
         <Route path='/profile' component={Profile}/>
         <Route path='/book/:bookid/pages' component={Pages}/>
         <Route path='/contact' component={Contact}/>
-        <Route path='/page/:pageid/comments' component={Comment}/>
+        <Route path='/page/:pageid/comments' component={Comments}/>
 
     </Switch>
 )

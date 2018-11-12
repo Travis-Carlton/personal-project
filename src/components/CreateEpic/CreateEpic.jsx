@@ -14,11 +14,38 @@ class CreateEpic extends Component {
         }
     }
 
+    getTime = ()=>{
+        let time = Date();
+        let nT = time.split(' ');
+        let hours = nT[4].split(':')
+        if(hours[0]<=12){
+            hours = hours.join(':');
+            hours+= "am";
+            let dT = nT.splice(0,6);
+            dT[4] = hours;
+            dT = dT.join(' ')
+            // dT = JSON.stringify(dT)
+            return dT
+        } else if(hours[0]>12){
+            hours[0] -= 12;
+            hours[0] = JSON.stringify(hours[0])
+            hours = hours.join(':')
+            hours += "pm"
+            let dT = nT.splice(0,6)
+            dT[4] = hours
+            dT = dT.join(' ')
+            // dT = JSON.stringify(dT)
+            return dT
+        }
+    }
+
     createBook = ()=>{
         const {startingImages} = this.state;
         const {userId,bookname} = this.props;
         const bookcover = startingImages[0];
         const firstPage = startingImages[1];
+        let uDT = this.getTime();
+        
         userId === 0 || !bookname || !bookcover || !firstPage ? 
         alert('Please fill in the fields')
         : 
@@ -30,7 +57,7 @@ class CreateEpic extends Component {
                     // console.log('--------',res.data[res.data.length-1].id)
                     const {id} = res.data[res.data.length-1];
                     this.props.updateBooks(res.data);
-                    axios.post('/api/createpage', { firstPage, userId, id  })
+                    axios.post('/api/createpage', { uDT, firstPage, userId, id  })
             }).then((res)=>{
                 this.setState({startingImages: []});
                 this.props.history.push('/');
