@@ -13,9 +13,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     height: 600px;
     width: 500px;
     margin: 0 auto;
-    // border: 1px solid rgba(255, 255, 255, 0.789);
     background: rgba(90, 95, 110, 0.748);
-    // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
     box-shadow: 15px 15px 10px $shadow;
     animation: appearspage 1s ease-in-out 0s 1;
        
@@ -49,33 +47,33 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         width: 450px;
     }
     .deleteBtn{
-            cursor: pointer;
-            font-size: 10px;
-            background: rgba(0, 0, 0, 0);
-            box-shadow: 2px 2px 1px white;
-            text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
-            border: none;
-            border-radius: 5px 5px;
-            color: white;
-            font-family: 'Permanent Marker', cursive;
-            width: 20px;
-            height: 20px;
-            transition: .8s;
+        cursor: pointer;
+        font-size: 10px;
+        background: rgba(0, 0, 0, 0);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 5px 5px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        width: 20px;
+        height: 20px;
+        transition: .8s;
         transform: translate(214px,-5px);
     }
-      .deleteBtn:hover{
-            font-size: 10px;
-            background: rgba(0, 0, 0, 0.858);
-            box-shadow: 2px 2px 1px white;
-            text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
-            border: none;
-            border-radius: 5px 5px;
-            color: white;
-            font-family: 'Permanent Marker', cursive;
-            width: 20px;
-            height: 20px;
-            transition: .8s;
-                }
+    .deleteBtn:hover{
+        font-size: 10px;
+        background: rgba(0, 0, 0, 0.858);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 5px 5px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        width: 20px;
+        height: 20px;
+        transition: .8s;
+        }
     .newpage{
         width: 200px;
         height: 40px;
@@ -116,113 +114,51 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     .upload{
         color: rgba(255, 255, 255, 0.486);
     }
-    
-
 }
 
 @media (min-width: 425px) and (max-width: 768px){
     .spagep{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 550px;
+        height: 500px;
         width: 400px;
-        margin: 0 auto;
-        box-shadow: 15px 15px 10px $shadow;
-        animation: appearpost 1s ease-in-out 0s 1;
-        overflow: hidden;
-         
     }
-    .postc{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-shadow: 3px 3px 2px $shadow;
-    
-        .postcc{
-            margin-bottom: 20px;
-        }
+    .spagec{
+
         img{
-            height: 350px;
-            width: 300px;
+            height: 400px;
+            width: 350px;
             margin-bottom: 0;
         }
     }
 }
 
 @media (min-width: 320px) and (max-width: 425px){
-    .postp{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 500px;
-        width: 370px;
-        margin: 0 auto;
-        box-shadow: 15px 15px 10px $shadow;
-    }
-    .postc{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-shadow: 3px 3px 2px $shadow;
-    
-        .postcc{
-            margin-bottom: 20px;
-        }
-    
-        img{
-            height: 400px;
-            width: 350px;
-        }
-    }
+   .spagep{
+       height: 425px;
+       width: 350px;
+   }
+   .spagec{
+       .spagecc{
+           font-size: 20px;
+       }
+       img{
+           height: 350px;
+           width: 300px;
+       }
+   }
 }
 
 @media screen and (max-width: 320px){
-    .postp{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 555px;
+    .spagep{
+        height: 420px;
         width: 300px;
-        margin: 0 auto;
-        box-shadow: 15px 15px 10px $shadow;
-        animation: appearpost 1s ease-in-out 0s 1;
     }
-    .postc{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        text-shadow: 3px 3px 2px $shadow;
-    
-        .postcc{
-            margin-bottom: 20px;
+    .spagec{
+        .spagecc{
+            font-size: 20px;
         }
-    
         img{
-            height: 400px;
-            width: 290px;
+            height: 350px;
+            width: 275px;
         }
-        .deleteBtn{
-            cursor: pointer;
-            font-size: 10px;
-            background: rgba(0, 0, 0, 1);
-            box-shadow: 2px 2px 1px white;
-            text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
-            border: none;
-            border-radius: 5px 5px;
-            color: white;
-            font-family: 'Permanent Marker', cursive;
-            width: 20px;
-            height: 20px;
-            transition: .8s;
-            // transform: translate(135px,-5px);
-    }
     }
 }

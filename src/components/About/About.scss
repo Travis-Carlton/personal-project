@@ -11,12 +11,9 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     height: 600px;
     width: 500px;
     margin: 0 auto;
-    // border: 1px solid rgba(255, 255, 255, 0.789);
     background: $back-sqr;
-    // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
     box-shadow: 15px 15px 10px $shadow;
     animation: appearab 1s ease-in-out 0s 1;
-    overflow: hidden;
     @keyframes appearab {
         0% {
           height: 0;
@@ -56,18 +53,9 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
 
 @media (min-width: 425px) and (max-width: 768px){
     .aboutp{
-        display: flex;
-        justify-content: center;
-        align-items: center;
         height: 550px;
         width: 400px;
-        margin: 0 auto;
-        // border: 1px solid rgba(255, 255, 255, 0.789);
-        background: $back-sqr;
-        // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
-        box-shadow: 15px 15px 10px $shadow;
         animation: appearab 1s ease-in-out 0s 1;
-        overflow: hidden;
         @keyframes appearab {
             0% {
               height: 0;
@@ -84,39 +72,21 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
           }
     }
     .aboutc{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-shadow: 3px 3px 2px $shadow;
-    
         .abouth1{
-            font-size: 3rem;
-            text-shadow: 2px 2px 1px white;
-    
+            font-size: 2rem;
+            text-shadow: 5px 5px 1px $text-shadow;
         }
         p{
-            margin-bottom: 250px;
-            text-shadow: 2px 2px 1px white;
-    
+            font-size: 20px;
         }
     }
 }
 
 @media (min-width: 320px) and (max-width: 425px){
     .aboutp{
-        display: flex;
-        justify-content: center;
-        align-items: center;
         height: 550px;
         width: 400px;
-        margin: 0 auto;
-        // border: 1px solid rgba(255, 255, 255, 0.789);
-        background: $back-sqr;
-        // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
-        box-shadow: 15px 15px 10px $shadow;
         animation: appearab 1s ease-in-out 0s 1;
-        overflow: hidden;
         @keyframes appearab {
             0% {
               height: 0;
@@ -133,39 +103,20 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
           }
     }
     .aboutc{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-shadow: 3px 3px 2px $shadow;
-    
         .abouth1{
-            font-size: 3rem;
-            text-shadow: 2px 2px 1px white;
-    
+            font-size: 1.5rem;
         }
         p{            
-            margin-bottom: 250px;
-            text-shadow: 2px 2px 1px white;
-    
+            font-size: 20px;
         }
     }
 }
 
 @media screen and (max-width: 320px){
     .aboutp{
-        display: flex;
-        justify-content: center;
-        align-items: center;
         height: 550px;
         width: 300px;
-        margin: 0 auto;
-        // border: 1px solid rgba(255, 255, 255, 0.789);
-        background: $back-sqr;
-        // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
-        box-shadow: 15px 15px 10px $shadow;
         animation: appearab 1s ease-in-out 0s 1;
-        overflow: hidden;
         @keyframes appearab {
             0% {
               height: 0;
@@ -182,21 +133,11 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
           }
     }
     .aboutc{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-shadow: 3px 3px 2px $shadow;
-    
         .abouth1{
-            font-size: 3rem;
-            text-shadow: 2px 2px 1px white;
-    
+            font-size: 1rem;
         }
         p{
-            margin-bottom: 250px;
-            text-shadow: 2px 2px 1px white;
-    
+            font-size: 18px;
         }
     }
 }
