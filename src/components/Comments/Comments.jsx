@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import socketIOClient from 'socket.io-client';
-const socket = socketIOClient();
+const socket = socketIOClient('http://localhost:4000');
 
 
 class Comments extends Component {

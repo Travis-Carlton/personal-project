@@ -16,6 +16,7 @@ const io = require('socket.io')(server)
 const controller = require('./controller.js');
 const creds = require('../config/config.js');
 
+
 massive(process.env.CONNECTION_STRING).then(database => {
     app.set('db', database);
 }).catch(error => {
@@ -40,7 +41,6 @@ app.use(express.static(`${__dirname}/../build`));
 io.sockets.on('connection', (socket) =>{
     console.log('user connected')
 
-    socket.join('cool')
 
     socket.on('message', (msg) => {
         console.log(msg)
@@ -49,7 +49,7 @@ io.sockets.on('connection', (socket) =>{
 
 
         db.create_comment([userId,pageid,message,lusername]).then(() => {
-        io.in('cool').emit('messageFromServer', msg);}
+        io.emit('messageFromServer', msg);}
         )
     })
 
@@ -58,9 +58,7 @@ io.sockets.on('connection', (socket) =>{
     })
 })
 
-server.listen(4001,()=>{
-    console.log('listening on *:4001 🦖');
-})
+
 
 ///////////////////////////////
 
@@ -293,7 +291,6 @@ app.get('*', (req, res)=>{
   res.sendFile(path.join(__dirname, '../build/index.html'));
 })
 
-const PORT = 4000;
-app.listen(PORT, ()=>{
-    console.log(`Server in port ${PORT} 🦄`)
+server.listen(4000,()=>{
+    console.log('listening on 4000 🦖');
 })
