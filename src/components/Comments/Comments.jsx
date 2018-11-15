@@ -69,7 +69,7 @@ class Comments extends Component {
             // console.log(this.state.fromDB)
             return <div className={message.user_id===this.props.userId?'msgbox':'usermsgbox'} key={i}><div>{message.lusername}:</div> <hr/> <div className="cmntfield">{message.message}</div></div>
           })
-          
+         
         return (
             <div className='commentsp'>
                 <div className="commentsc">

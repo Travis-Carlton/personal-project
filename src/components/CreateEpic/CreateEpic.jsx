@@ -112,8 +112,9 @@ class CreateEpic extends Component {
               ///////////////////
             //   var widget = window.cloudinary.createUploadWidget({ 
             //     cloudName: "demo", uploadPreset: "preset1"}, (error, result) => { });
-            //   widget.close({quiet: true});
+            
             }
+            
          })
          
      }

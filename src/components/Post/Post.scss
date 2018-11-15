@@ -48,6 +48,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         height: 500px;
         width: 450px;
     }
+    
     .deleteBtn{
             cursor: pointer;
             font-size: 10px;
@@ -61,7 +62,6 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             width: 20px;
             height: 20px;
             transition: .8s;
-        transform: translate(214px,-5px);
     }
       .deleteBtn:hover{
             font-size: 10px;
@@ -76,8 +76,19 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             height: 20px;
             transition: .8s;
                 }
+    .footerdiv{
+        height: 10px;
+        width: 450px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        text-shadow: 2px 2px 1px $text-shadow;
+    }
 
 }
+
 
 @media (min-width: 425px) and (max-width: 768px){
     .postp{

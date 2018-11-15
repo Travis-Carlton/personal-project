@@ -260,7 +260,9 @@ app.get('/api/data', (req,res)=>{
     })
 })
 
-app.get(`/api/:pageid/prevcomments`, controller.prevComments)
+app.get(`/api/:pageid/prevcomments`, controller.prevComments);
+app.get(`/api/:bookid/pagecount`, controller.pageCount);
+app.get(`/api/page/:pageid/commentcount`, controller.commentCount);
 
 
 // console.log(Date())

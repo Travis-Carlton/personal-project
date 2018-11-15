@@ -3,9 +3,9 @@ import './App.scss';
 import axios from 'axios';
 import routes from './routes';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 import { updateID, updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic } from './redux/reducer';
-
+import Contact from './components/Contact/Contact';
 
 import Nav from './components/Nav/Nav';
 
@@ -56,8 +56,17 @@ getData = ()=>{
     return (
       <div className="App">
         <div className="background-image">
+
+          {window.location.pathname !== '/contact'?
+          <>
           <Nav />
           {routes}
+          </>
+          :
+          <Route path='/contact' render={()=><Contact/>}/>
+          }
+          
+
         </div>
       </div>
     );

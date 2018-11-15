@@ -78,7 +78,7 @@ render(){
                 <label>Bio: </label><textarea onChange={e=>this.handleChange('bio',e.target.value)} cols="50" rows="2"></textarea>
                 <label>Profile Picture: </label><textarea onChange={e=>this.handleChange('profilePic',e.target.value)} cols='50' rows='1'></textarea>                
                 <br/>
-                <button onClick={this.signUp}>SignUp</button>
+                <div style={{height:'50px'}}><button onClick={this.signUp}>SignUp</button></div>
                 
                 </div>                
             </div>

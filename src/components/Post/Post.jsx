@@ -10,6 +10,8 @@ class Post extends Component {
         super();
         this.state = {
             hover: false,
+            toggle: false,
+            count: ''
         }
     }
     mouseEnter = () => {
@@ -17,6 +19,13 @@ class Post extends Component {
       }
     mouseLeave = () => {
         this.setState({ hover: false });
+      }
+
+      componentDidMount = ()=>{
+        axios.get(`/api/${this.props.book.id}/pagecount`).then(res=>{
+            // console.log(res.data)
+            this.setState({ count: res.data.count})
+        })
       }
     
 
@@ -34,6 +43,7 @@ class Post extends Component {
         })
        
     }
+
     
     render(){
         // console.log('----------post',this.props)
@@ -42,10 +52,10 @@ class Post extends Component {
         <div className="postp">
             <div className="postc">
         
-                <div className='postcc'>{name}</div>
+                <div className="postcc">{name}</div>
                 
                 <div><Link to={`/book/${id}/pages`} ><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={image} alt=""/></Link></div>
-                {this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}
+                <div className='footerdiv'><span>Pages: {this.state.count}</span>{this.state.hover?<><button onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} onClick={this.deleteBook} className='deleteBtn'>X</button></>:null}</div>
                 
             </div>
         </div>

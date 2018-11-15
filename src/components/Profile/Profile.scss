@@ -3,7 +3,9 @@
 $shadow: rgba(0, 0, 0, 0.33);
 $back-sqr:rgba(90, 95, 110, 0.748);
 $text-shadow:  rgba(20, 25, 30, 0.81);
-
+@function myCalc($num, $num2){
+    @return $num + $num2
+  }
 
 .profilep{
     display: flex;
@@ -53,13 +55,41 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         margin-bottom: 20px;
     }
 
-    img{
-        height: 200px;
+    // img{
+    //     height: 200px;
+    //     width: 200px;
+    //     border-radius: 50%;
+    //     box-shadow: 15px 15px 10px $shadow;
+    //     margin-bottom: 30px;
+    // }
+ 
+    .diamond, .dia {
+        margin: 0 auto;
+        transform-origin: 50% 50%;
+        overflow: hidden;
         width: 200px;
-        border-radius: 50%;
-        box-shadow: 15px 15px 10px $shadow;
-        margin-bottom: 30px;
-    }
+        height: 200px;
+      }
+      .diamond {
+        transform: rotate(45deg) translateY(-25px) translateX(-25px);
+      }
+      .diamond .dia {
+        width: 380px;
+        height: 400px;
+        transform: rotate(-45deg);
+        // position: relative;
+
+      }
+      .diamond img {
+        width: 100%;
+        height: auto;
+        // transform: translate(0,-100px);
+        // transform: scale();
+        position: relative;
+        left: 7px;
+        top: -100px
+        // margin: 0 auto;
+      }
 
     .editpic{
         cursor: pointer;
@@ -75,7 +105,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         width: 40px;
         height: 20px;
         transition: .8s;
-        transform: translate(0px,-300px);
+        transform: translate(0px,-80px);
     }
     .editpic:hover{
         font-size: 10px;

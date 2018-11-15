@@ -1,0 +1,1 @@
+select count(id) from percomments where post_id = $1;

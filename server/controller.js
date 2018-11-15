@@ -57,6 +57,25 @@ module.exports = {
         
     },
 
+    pageCount: (req,res)=>{
+        const db = req.app.get('db');
+        const {bookid} = req.params;
+        // console.log(req.params)
+        db.page_count([bookid]).then((response)=>{
+            res.status(200).send(response[0])
+        })
+    },
+
+    commentCount: (req,res)=>{
+        const db = req.app.get('db');
+        const {pageid} = req.params;
+        // console.log(req.params)
+        db.comment_count([pageid]).then((response)=>{
+            // console.log(response)
+            res.status(200).send(response[0])
+        })
+    },
+
 ////////////post functions
     createPage: (req,res)=>{
         // console.log(req.body)

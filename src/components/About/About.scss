@@ -18,11 +18,8 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         0% {
           height: 0;
           width: 0;
-          font-size: 0px;
         }
-        80% {
-          font-size: 0px;
-        }
+
         100% {
             height: 600px;
             width: 500px;
@@ -35,11 +32,21 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     justify-content: center;
     align-items: center;
     text-shadow: 3px 3px 2px $shadow;
+ 
 
     .abouth1{
         font-size: 3rem;
         text-shadow: 5px 5px 1px $text-shadow;
         color: white;
+        animation: appearabcd 1s ease-in-out 0s 1;
+        @keyframes appearabcd {
+            0% {
+                font-size: 0px;
+              }
+              80% {
+                font-size: 0px;
+              }
+          }
     }
     p{
         text-align: center;
@@ -48,8 +55,54 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         margin-bottom: 60px;
         text-shadow: 5px 5px 1px $text-shadow;
         color: white;
+        animation: appearabc 1s ease-in-out 0s 1;
+        @keyframes appearabc {
+            0% {
+              font-size: 0px;
+            }
+            80% {
+              font-size: 0px;
+            }
+          }
+        
     }
+    .contactbtn{
+        margin-top: 10px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.858);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 10px 10px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        width: 100px;
+        height: 30px;
+        transition: .8s;
+        animation: appearabcde 1s ease-in-out 0s 1;
+        @keyframes appearabcde {
+            0% {
+                transform: translate(0,1000px);
+                height: 0;
+                width: 0;
+                font-size: 0px;
+              }
+              80% {
+                height: 0;
+                width: 0;
+                font-size: 0px;
+                transform: translate(0,1000px);
+
+              }
+          }
+    }
+    .contactbtn:hover{
+        width: 110px;
+        height: 40px;
+    }
+
 }
+
 
 @media (min-width: 425px) and (max-width: 768px){
     .aboutp{

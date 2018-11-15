@@ -13,16 +13,22 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     height: 600px;
     width: 500px;
     margin: 0 auto;
-    // border: 1px solid rgba(255, 255, 255, 0.789);
     background: $back-sqr;
-    // background: linear-gradient(0.25turn,rgba(0, 0, 0, 0.938),rgba(255, 255, 255, 0.604),rgba(0, 0, 0, 0.938));
     box-shadow: 15px 15px 10px $shadow;
     animation: appearlog 1s ease-in-out 0s 1;
-    overflow: hidden;
         h1{
             font-size: 3rem;    
             text-shadow: 5px 5px 1px $text-shadow;
             color: white;
+            animation: appearlogabc 1s ease-in-out 0s 1;
+            @keyframes appearlogabc {
+                0% {
+                  font-size: 0
+                }
+                80% {
+                    font-size: 0
+                }
+              }
         }
     @keyframes appearlog {
         0% {
@@ -32,18 +38,12 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
           font-size: 0px;
           border-radius: 50%;
         }
-        
         80% {
           font-size: 0px;
-        //   height: 250px;
-        //   width: 250px;
-            // margin-top: 150px;
         }
         100% {
             height: 600px;
             width: 500px;
-            overflow: hidden;
-
         }
       }
 }
@@ -56,6 +56,15 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     color: white;
     font-size: 24px;
     margin-bottom: 150px;
+    animation: appearlogabcd 1s ease-in-out 0s 1;
+    @keyframes appearlogabcd {
+        0% {
+          font-size: 0
+        }
+        80% {
+            font-size: 0
+        }
+      }
     
 
         input{
@@ -70,9 +79,23 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             color: white;
             box-shadow: 2px 2px 1px white;
             font-family: 'Permanent Marker', cursive;
+            animation: appearloga 1s ease-in-out 0s 1;
+            @keyframes appearloga {
+                0% {
+                    transform: translate(0,1000px);
+                  height: 0;
+                  width: 0;
+                }
+                80% {
+                    transform: translate(0,1000px);
+                  height: 0;
+                  width: 0;
+                }
+              }
         }
 
         button{
+            cursor: pointer;
             margin-top: 20px;
             font-size: 20px;
             background: rgba(0, 0, 0, 0.858);
@@ -85,11 +108,23 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             width: 100px;
             height: 30px;
             transition: .8s;
+            animation: appearlogab 1s ease-in-out 0s 1;
+            @keyframes appearlogab {
+                0% {
+                    transform: translate(0,1000px);
+                  height: 0;
+                  width: 0;
+                }
+                80% {
+                    transform: translate(0,1000px);
+                  height: 0;
+                  width: 0;
+                }
+              }
         }
          button:hover{
                     width: 130px;
-                    height: 40px;
-                    // font-size: 
+                    height: 40px;        
                 }
    
 }

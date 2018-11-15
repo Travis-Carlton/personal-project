@@ -11,6 +11,7 @@ constructor(props){
 
 
 
+
     render() {
     // console.log('home-----', this.props.books[0])
         
@@ -19,6 +20,7 @@ constructor(props){
                <div key={book.id} className="homec"><Post key={book.id} book={book} /></div>                
             )
         })
+       
         
 
         return (

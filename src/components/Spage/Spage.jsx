@@ -11,7 +11,8 @@ class Spage extends Component {
         this.state = {
             hover: false,
             newPageInput: true,
-            nextPage: []
+            nextPage: [],
+            count: ''
         }
     }
     mouseEnter = () => {
@@ -36,6 +37,13 @@ class Spage extends Component {
               nextPage: val
           })
       }
+
+      componentDidMount(){
+          axios.get(`/api/page/${this.props.pageId}/commentcount`).then(res=>{
+              console.log(res.data)
+              this.setState({ count: res.data.count})
+            })
+        }
 
       getTime = ()=>{
         let time = Date();
@@ -148,7 +156,7 @@ class Spage extends Component {
 
     
     render(){
-        // console.log('```````````SPAGES', this.props.pageId)
+        // console.log('```````````SPAGES', this.props)
 
     return (
         <div className="spagep">
@@ -179,7 +187,7 @@ class Spage extends Component {
                 
                 }</div>
 
-                {this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}
+                <div className='pagefooter'>{this.props.pimage?<span>Comments: {this.state.count}</span>:null}{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}</div>
                 
             </div>
         </div>

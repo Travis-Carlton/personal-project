@@ -1,0 +1,1 @@
+select count(id) from perposts where book_id = $1;

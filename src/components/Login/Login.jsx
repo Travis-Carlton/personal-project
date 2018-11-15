@@ -60,7 +60,7 @@ render(){
              
                 <label>Username: </label><input onChange={e=>this.upUsername(e.target.value)} type="text" required/>
                 <label>Password: </label><input onChange={e=>this.upPassword(e.target.value)} type="password" required/>
-                <button onClick={this.login}>Login</button>
+                <div style={{height:'50px'}}><button onClick={this.login}>Login</button></div>
             
             </div>
         </div>

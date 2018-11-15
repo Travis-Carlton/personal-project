@@ -1,16 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import "display";
 
 $shadow: rgba(0, 0, 0, 0.33);
 $back-sqr: rgba(128, 128, 128, 0.604);
 $text-shadow:  rgba(20, 25, 30, 0.81);
-
+// @mixin flex {
+//     display: flex
+// }
+@function myCalc($num, $num2){
+    @return $num + $num2
+  }
 
 .spagep{
-    display: flex;
+    @include flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 600px;
+    height: myCalc(300px,300px);
     width: 500px;
     margin: 0 auto;
     background: rgba(90, 95, 110, 0.748);
@@ -30,7 +36,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
       }
 }
 .spagec{
-    display: flex;
+    @include flex;    
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -59,20 +65,21 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         width: 20px;
         height: 20px;
         transition: .8s;
-        transform: translate(214px,-5px);
+        // transform: translate(0px,-5px);
     }
     .deleteBtn:hover{
-        font-size: 10px;
+        @extend .deleteBtn;
+        // font-size: 10px;
         background: rgba(0, 0, 0, 0.858);
-        box-shadow: 2px 2px 1px white;
-        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
-        border: none;
-        border-radius: 5px 5px;
-        color: white;
-        font-family: 'Permanent Marker', cursive;
-        width: 20px;
-        height: 20px;
-        transition: .8s;
+        // box-shadow: 2px 2px 1px white;
+        // text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        // border: none;
+        // border-radius: 5px 5px;
+        // color: white;
+        // font-family: 'Permanent Marker', cursive;
+        // width: 20px;
+        // height: 20px;
+        // transition: .8s;
         }
     .newpage{
         width: 200px;
@@ -106,13 +113,22 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         width: 220px;
     }
     .newpagediv{
-        display: flex;
+        @include flex;        
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
     .upload{
         color: rgba(255, 255, 255, 0.486);
+    }
+    .pagefooter{
+        height: 15px;
+        width: 450px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-shadow: 5px 5px 1px $text-shadow;
+        color: white;
     }
 }
 
