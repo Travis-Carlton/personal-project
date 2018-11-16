@@ -15,6 +15,7 @@ componentDidMount(){
 
   this.getData();
   this.getUser();
+
   
   // const user = JSON.parse(window.sessionStorage.getItem('user'));
   // console.log(user);
@@ -25,6 +26,7 @@ componentDidMount(){
   //   updateBio(user.bio);
   //   updateProfilePic(user.pic);
   }
+ 
 
 getUser = ()=>{
   const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
@@ -39,6 +41,12 @@ getUser = ()=>{
       updateProfilePic(user.pic);
       updateID(user.id)
   }
+}).then(()=>{
+  const {userId} =this.props;
+  axios.get(`/api/alllikes/${userId}`).then(res=>{
+  console.log(res.data)
+
+  })
 })
 }
 

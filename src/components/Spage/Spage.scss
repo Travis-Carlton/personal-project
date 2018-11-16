@@ -130,6 +130,21 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         text-shadow: 5px 5px 1px $text-shadow;
         color: white;
     }
+    .likebtn{
+        @extend .deleteBtn;
+        height: 0;
+        width: 0;
+        font-size: 20px;
+        border: none;
+        box-shadow: none;
+        margin-left: 5px;
+    } .likebtn:hover{
+        @extend .deleteBtn:hover;
+        background: none;
+        box-shadow: none;
+        font-size: 20px;
+        transform: scale(2)
+    }
 }
 
 @media (min-width: 425px) and (max-width: 768px){

@@ -57,6 +57,15 @@ module.exports = {
         
     },
 
+    bookLike: (req,res)=>{
+        const db = req.app.get('db');
+        const {id,userId} = req.body;
+        db.book_like([userId,id]).then(()=>{
+            res.status(200).send('book liked!')
+        })
+        
+    },
+
     pageCount: (req,res)=>{
         const db = req.app.get('db');
         const {bookid} = req.params;
@@ -72,6 +81,23 @@ module.exports = {
         // console.log(req.params)
         db.comment_count([pageid]).then((response)=>{
             // console.log(response)
+            res.status(200).send(response[0])
+        })
+    },
+    likeCount: (req,res)=>{
+        const db = req.app.get('db');
+        const {bookid} = req.params;
+        // console.log(req.params)
+        db.book_like_count([bookid]).then((response)=>{
+            // console.log(response[0])
+            res.status(200).send(response[0])
+        })
+    },
+    pageLikeCount: (req,res)=>{
+        const db = req.app.get('db');
+        const {pageid} = req.params;
+        // console.log(req.params)
+        db.page_like_count([pageid]).then((response)=>{
             res.status(200).send(response[0])
         })
     },
@@ -104,6 +130,14 @@ module.exports = {
           console.error('error in  create page', error);
           res.status(500).json({ message: ' in createNextPage '})
         });
+    },
+    pageLike: (req,res)=>{
+        const db = req.app.get('db');
+        const {userId,pageId} = req.body;
+        db.page_like([userId,pageId]).then(()=>{
+            res.status(200).send('page liked!')
+        })
+        
     },
 
 

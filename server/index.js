@@ -259,10 +259,21 @@ app.get('/api/data', (req,res)=>{
         res.status(200).send(response)
     })
 })
+app.get('/api/alllikes/:userid', (req,res)=>{
+  const db = req.app.get('db');
+  const { userid } = req.params;
+  console.log(req.params)
+  db.all_likes([userid]).then(response=>{
+    console.log('--------',response)
+    res.status(200).send(response)
+  })
+})
 
 app.get(`/api/:pageid/prevcomments`, controller.prevComments);
 app.get(`/api/:bookid/pagecount`, controller.pageCount);
 app.get(`/api/page/:pageid/commentcount`, controller.commentCount);
+app.get(`/api/:bookid/likecount`, controller.likeCount);
+app.get(`/api/page/:pageid/pagelikecount`, controller.pageLikeCount);
 
 
 // console.log(Date())
@@ -277,11 +288,13 @@ app.get('/api/getusers', controller.getUsers)
 app.get('/api/singleBook/:id', controller.singleBook);
 app.post('/api/createbook', controller.createBook);
 app.delete(`/api/deleteBook`, controller.deleteBook);
+app.post(`/api/booklike`, controller.bookLike);
 //////////////////////////////
 
 ///////////Page related calls
-app.post('/api/createpage', controller.createPage)
-app.post('/api/createnextpage', controller.createNextPage)
+app.post('/api/createpage', controller.createPage);
+app.post('/api/createnextpage', controller.createNextPage);
+app.post(`/api/pagelike`, controller.pageLike)
 //////////////////////////////
 
 //////////profile related calls

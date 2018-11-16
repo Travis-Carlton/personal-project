@@ -22,7 +22,7 @@ export default (
         <Route path='/book/:bookid/pages' component={Pages}/>
         {/* <Route path='/contact' component={Contact}/> */}
         <Route path='/page/:pageid/comments' component={Comments}/>
-        {/* <Route path='/fun_fun' component={Fun}/> */}
+        <Route path='/fun_fun' component={Fun}/>
 
     </Switch>
 )

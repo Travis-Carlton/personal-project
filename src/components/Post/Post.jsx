@@ -11,7 +11,8 @@ class Post extends Component {
         this.state = {
             hover: false,
             toggle: false,
-            count: ''
+            count: '',
+            likecount: ''
         }
     }
     mouseEnter = () => {
@@ -25,6 +26,10 @@ class Post extends Component {
         axios.get(`/api/${this.props.book.id}/pagecount`).then(res=>{
             // console.log(res.data)
             this.setState({ count: res.data.count})
+        })
+        axios.get(`/api/${this.props.book.id}/likecount`).then(res=>{
+            // console.log(res.data)
+            this.setState({ likecount: res.data.count})
         })
       }
     
@@ -44,6 +49,17 @@ class Post extends Component {
        
     }
 
+    likeBook = ()=>{
+        const {id} = this.props.book;
+        const {userId} = this.props
+        !userId?
+        alert('You need to be logged in to like this book!')
+        :
+        axios.post(`/api/booklike`, {id, userId}).then((res)=>{
+            console.log(res)
+        })
+    }
+
     
     render(){
         // console.log('----------post',this.props)
@@ -55,7 +71,7 @@ class Post extends Component {
                 <div className="postcc">{name}</div>
                 
                 <div><Link to={`/book/${id}/pages`} ><img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={image} alt=""/></Link></div>
-                <div className='footerdiv'><span>Pages: {this.state.count}</span>{this.state.hover?<><button onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} onClick={this.deleteBook} className='deleteBtn'>X</button></>:null}</div>
+                <div className='footerdiv'><div><span>Pages: {this.state.count}</span><span style={{marginLeft:'20px'}}>Likes: {this.state.likecount}</span><button onClick={this.likeBook} className='likebtn'>+</button></div>{this.state.hover?<><button onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} onClick={this.deleteBook} className='deleteBtn'>X</button></>:null}</div>
                 
             </div>
         </div>

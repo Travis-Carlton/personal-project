@@ -1,0 +1,1 @@
+select count(id) from perpostlikes where post_id = $1

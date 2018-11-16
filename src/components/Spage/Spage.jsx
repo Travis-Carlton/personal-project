@@ -12,7 +12,8 @@ class Spage extends Component {
             hover: false,
             newPageInput: true,
             nextPage: [],
-            count: ''
+            count: '',
+            pagelike: ''
         }
     }
     mouseEnter = () => {
@@ -40,8 +41,22 @@ class Spage extends Component {
 
       componentDidMount(){
           axios.get(`/api/page/${this.props.pageId}/commentcount`).then(res=>{
-              console.log(res.data)
+            //   console.log(res.data)
               this.setState({ count: res.data.count})
+            })
+          axios.get(`/api/page/${this.props.pageId}/pagelikecount`).then(res=>{
+              console.log(res.data.count)
+              this.setState({ pagelike: res.data.count})
+            })
+        }
+
+        likePage = ()=>{
+            const {userId,pageId} = this.props
+            !userId?
+            alert('You need to be logged in to like this page!')
+            :
+            axios.post(`/api/pagelike`, {userId,pageId}).then((res)=>{
+                console.log(res)
             })
         }
 
@@ -187,7 +202,7 @@ class Spage extends Component {
                 
                 }</div>
 
-                <div className='pagefooter'>{this.props.pimage?<span>Comments: {this.state.count}</span>:null}{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}</div>
+                <div className='pagefooter'>{this.props.pimage?<div><span>Comments: {this.state.count}</span><span style={{marginLeft: '20px'}}>Likes: {this.state.pagelike}</span><button onClick={this.likePage} className='likebtn'>+</button></div>:null}{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}</div>
                 
             </div>
         </div>
