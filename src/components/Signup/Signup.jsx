@@ -30,23 +30,29 @@ signUp = ()=>{
     cPass !== password ?
     alert('Password fields dont match')
     :
-    axios.get(`/api/getusers?username=${username}`).then(()=>{
-        axios.post('/api/sendNewUser', {username,firstName,lastName,bio,profilePic})
-    }).then(()=>{
+    // axios.get(`/api/getusers?username=${username}`).then(()=>{
+        
+            // .then(()=>{
         axios.post('/api/signup', {username,password,firstName,lastName,bio,profilePic}).then((res) => {
             // console.log('/////////---------',res.data)
             // const {user} = res.data;
-            updateUsername(username);
-            updateFirstName(firstName);
-            updateLastName(lastName);
-            updateBio(bio);
-            updateProfilePic(profilePic);
-            updateID(res.data.id);
-            this.props.history.push('/');
+            if(res.data === 'username already exists'){
+                alert('username already taken')
+            } else {
+                axios.post('/api/sendNewUser', {username,firstName,lastName,bio,profilePic})
+                updateUsername(username);
+                updateFirstName(firstName);
+                updateLastName(lastName);
+                updateBio(bio);
+                updateProfilePic(profilePic);
+                updateID(res.data.user.id);
+                this.props.history.push('/');
+            }
         }).catch(err => console.log(err))
-    }).catch(()=>alert('Username is already taken'));
+    }
+    // .catch(()=>alert('Username is already taken'));
     
-}
+
 
 /// onChange functions  //////////
 handleChange = (key, val) => {

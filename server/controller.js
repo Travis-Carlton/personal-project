@@ -4,20 +4,21 @@ module.exports = {
             if (req.session.user) {
               res.status(200).send( req.session.user );
             } else {
-              res.status(403).json({ message: 'Not logged in' });
+            //   res.status(403).json({ message: 'Not logged in' });
+            res.send('Not logged in')
             }
           },
 
-    getUsers: (req,res)=>{
-        const db = req.app.get('db');
-        // console.log(req.query)
-        db.get_users([req.query.lusername]).then(response=>{
-            // console.log('-------------' , req.query.username)
+    // getUsers: (req,res)=>{
+    //     const db = req.app.get('db');
+    //     // console.log(req.query)
+    //     db.get_users([req.query.lusername]).then(response=>{
+    //         // console.log('-------------' , req.query.username)
 
-            response.length?res.status(500).send('username taken'):
-            res.status(200).send('success')
-        })        
-    },
+    //         response.length?res.status(500).send('username taken'):
+    //         res.status(200).send('success')
+    //     })        
+    // },
 
 //////////book functions
     singleBook: (req,res)=>{
@@ -119,10 +120,10 @@ module.exports = {
     createNextPage: (req,res)=>{
         // console.log(req.body)
         const db = req.app.get('db');
-        console.log('-------createPage', req.body)
+        // console.log('-------createPage', req.body)
         const { nextPage, userId, bookid, uDT } = req.body;
         db.create_page([ null, uDT, nextPage, userId, bookid ]).then((response)=>{
-            console.log('RESSSSSSS',response[0])
+            // console.log('RESSSSSSS',response[0])
 
            res.status(200).json({postUser: response[0]})
         })
@@ -162,7 +163,7 @@ module.exports = {
         const {id} = req.params;
         const {uImage} = req.body;
         db.edit_profile_pic([uImage,id]).then((response)=>{
-            req.session.user.pic = response[0].profile_pic,
+            req.session.user.pic = response[0].profile_pic;
             res.status(200).json({image: response[0].profile_pic})
             // console.log('', response[0].profile_pic)
             

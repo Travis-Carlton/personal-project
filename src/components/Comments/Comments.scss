@@ -88,6 +88,21 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             .cmntfield{
                 padding: 0 10px 5px 10px;
             }
+            .picnuser{
+                padding: 0 10px 0 0;
+                display:flex;
+                justify-content: flex-start;
+                align-items:center
+            }
+            .compic1 {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                padding: 5px;
+            }
+            .compuser {
+                margin: 0 0 0 5px;
+            }
         }
         .msgbox{
             background: rgba(54, 54, 54, 0.776);
@@ -114,13 +129,45 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             .cmntfield{
                 padding: 0 10px 5px 10px;
             }
+            .picnuser{
+                padding: 0 0 0 10px;
+                display:flex;
+                flex-direction: row-reverse;
+                justify-content: flex-start;
+                align-items:center
+            }
+            .compic1 {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                padding: 5px;
+            }
+            .compuser {
+                margin: 0 5px 0 0;
+            }
+
         }
        
 
     }
     // .cmntinput{
-    //     position: sticky;
+    //     // position: sticky;
     // }
+    .isTyping {
+        animation: typing 500ms ease-in 1;
+        @keyframes typing {
+            0%{
+                font-size: 0
+            }
+            100%{
+                font-size: 16px;
+            }
+        }
+    }
+    .notTyping{
+        height: 20px;
+        display: none;
+    }
 
     input{
         margin-top: 10px; 

@@ -32,7 +32,7 @@ getUser = ()=>{
   const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
   axios.get('/api/auth').then(res=>{  
     const user = res.data;
-    // console.log('appjs-------',user);
+    // console.log('appjs-------',res.data);
     if(user.username){
       updateUsername(user.username);
       updateFirstName(user.first);
@@ -44,7 +44,7 @@ getUser = ()=>{
 }).then(()=>{
   const {userId} =this.props;
   axios.get(`/api/alllikes/${userId}`).then(res=>{
-  console.log(res.data)
+  // console.log(res.data)
 
   })
 })

@@ -43,14 +43,24 @@ io.sockets.on('connection', (socket) =>{
 
 
     socket.on('message', (msg) => {
-        console.log(msg)
+        // console.log(msg)
         const db = app.get('db');
-        const {message, userId, lusername, pageid} = msg;
+        const {message, userId, lusername, profilePic, pageid} = msg;
 
 
-        db.create_comment([userId,pageid,message,lusername]).then(() => {
+        db.create_comment([userId,pageid,message,lusername,profilePic]).then(() => {
         io.emit('messageFromServer', msg);}
-        )
+        ).catch(err => console.log(err))
+    })
+
+    socket.on('typing', (typing)=>{
+      // console.log(typing.lusername)
+      console.log(typing)
+      let typingUser = typing.lusername;
+      let erased = typing.erased;
+      // let typingID = typing.userId;
+      // if()
+      io.emit('userTyping', {typingUser})
     })
 
     socket.on('disconnect', () => {
@@ -74,7 +84,15 @@ app.post('/api/signup', (req,res)=>{
             return 'https://d28sdlh8venwby.cloudfront.net/assets/missing-profile-326c4759d9ad53fa5bc720276bfe604c25a0c53c37b314eeef1bfa2cc1c5c514.png'
         } else return profilePic
     }
-    bcrypt.hash(password,saltRounds).then(hash =>{
+
+    db.username_check([username]).then(resp => {
+      // console.log(resp[0])
+      if(resp[0].count  >= 1){
+        res.send('username already exists')
+        // console.log('bad')
+      } else {
+        // console.log('all good!')
+            bcrypt.hash(password,saltRounds).then(hash =>{
 
         db.signup([username, hash, firstName, lastName, bio, profilePicture]).then((user) => {
             // console.log('user info----',user);
@@ -85,6 +103,20 @@ app.post('/api/signup', (req,res)=>{
           res.status(500).json({ message: ' in signup '})
         });
     })
+      }
+    })
+
+    // bcrypt.hash(password,saltRounds).then(hash =>{
+
+    //     db.signup([username, hash, firstName, lastName, bio, profilePicture]).then((user) => {
+    //         // console.log('user info----',user);
+    //         req.session.user = {id: user[0].id, username, firstName, lastName, bio, profilePicture };
+    //         res.json({ user: req.session.user })
+    //       }).catch(error => {
+    //       console.error('error', error);
+    //       res.status(500).json({ message: ' in signup '})
+    //     });
+    // })
 });
 
 app.post('/api/login', (req,res)=>{
@@ -115,7 +147,7 @@ app.post('/api/login', (req,res)=>{
         } else {
             res.status(403).json({ message: "That user is not registered" })
           }
-    });
+    }).catch(err => console.log(err));
 });
 
 app.post('/api/logout', (req,res)=>{
@@ -173,7 +205,7 @@ app.post('/api/send', (req, res, next) => {
   })
 
   app.post('/api/sendNewUser', (req, res, next) => {
-      console.log(req.body)
+      // console.log(req.body)
     let { username, firstName, lastName, bio, profilePic } = req.body;
     let content = `username: ${username} \n name: ${firstName + ' ' + lastName}  \n bio: ${bio} \n profile pic: ${profilePic} `
   
@@ -281,7 +313,7 @@ app.get(`/api/page/:pageid/pagelikecount`, controller.pageLikeCount);
 
 
 app.get('/api/auth', controller.loggedIn)
-app.get('/api/getusers', controller.getUsers)
+// app.get('/api/getusers', controller.getUsers)
 ////////////////////////////
 
 ///////////Book related calls

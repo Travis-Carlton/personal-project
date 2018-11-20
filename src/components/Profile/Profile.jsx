@@ -71,8 +71,8 @@ submitNewPic = () => {
         return (
             <div className="profilep">
                 <div className="profilec">
-                    <div class="diamond">
-                        <div class="dia">
+                    <div className="diamond">
+                        <div className="dia">
                              <img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={profilePic} alt=""/>
                         </div>
                     </div>    
