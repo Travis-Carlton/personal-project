@@ -3,7 +3,9 @@ import './Login.scss';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
-import { updateID, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic } from '../../redux/reducer';
+import { updateID, updateUsername, updateFirstName, 
+    updateLastName, updateBio, updateProfilePic, updateLikedBooks, 
+    updateLikedPages, updateUsersBooks, updateUsersPages  } from '../../redux/reducer';
 
 
 class Login extends Component{
@@ -48,8 +50,29 @@ class Login extends Component{
             // console.log('user id ------',user.id)
         })
         .catch(err => console.log(err))
+        .then(()=>{
+            const { userId, updateLikedBooks, updateLikedPages } =this.props;
+            axios.get(`/api/alllikes/${userId}`).then(res=>{
+              console.log('++++++++++',res.data)
+              const {booklikes,postlikes} = res.data;
+              updateLikedBooks(booklikes);
+              updateLikedPages(postlikes);
+            }).then(()=>{
+                this.getUserContent()
+            })
+          })
+        .catch(err => console.log(err))
         
     }
+
+    getUserContent = ()=>{
+        const { updateUsersBooks, updateUsersPages } = this.props;
+        axios.get(`/api/getusercontent/${this.props.userId}`).then(res=>{
+            // console.log('>>>>>>>',res.data)
+            updateUsersBooks(res.data.userBooks)
+            updateUsersPages(res.data.userPosts)
+        })
+      }
 
 render(){
 
@@ -68,10 +91,13 @@ render(){
 };
 
 function mapStateToProps(iS){
-    const {loggedIn} = iS;
+    const {userId} = iS;
     return {
-       loggedIn
+       userId
     }
 }
 
-export default withRouter(connect(mapStateToProps, { updateID, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic })(Login));
+export default withRouter(connect(mapStateToProps, 
+    { updateID, updateUsername, updateFirstName, updateLastName, 
+        updateBio, updateProfilePic, updateLikedBooks, updateLikedPages, 
+        updateUsersBooks, updateUsersPages  })(Login));

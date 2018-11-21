@@ -42,8 +42,14 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     align-items: center;
 
     .spagecc{
-        margin-bottom: 20px;
         font-size: 2rem;
+        text-shadow: 5px 5px 1px $text-shadow;
+        color: white;
+    }
+    .spagecc2{
+        margin: 0;
+        font-size: 12px;
+        margin-bottom: 10px;
         text-shadow: 5px 5px 1px $text-shadow;
         color: white;
     }
@@ -95,6 +101,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         font-family: 'Permanent Marker', cursive;
     }
     .upload-button{
+        cursor: pointer;
         width: 200px;
         height: 30px;
         margin: 0 100px;
@@ -129,6 +136,10 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         align-items: center;
         text-shadow: 5px 5px 1px $text-shadow;
         color: white;
+        > div{
+            display: flex;
+            align-items: center;
+        }
     }
     .likebtn{
         @extend .deleteBtn;
@@ -138,12 +149,18 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         border: none;
         box-shadow: none;
         margin-left: 5px;
+        transform: translate(0,-15px);
     } .likebtn:hover{
         @extend .deleteBtn:hover;
         background: none;
         box-shadow: none;
         font-size: 20px;
         transform: scale(2)
+    }
+    .unlikebtn{
+        @extend .likebtn
+    } .unlikebtn:hover {
+        @extend .likebtn:hover
     }
 }
 

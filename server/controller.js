@@ -28,10 +28,11 @@ module.exports = {
         const {id} = req.params;
         // const {uImage} = req.body;
         db.get_single_book([id]).then((response)=>{
-            // console.log(pages[0])
-            // console.log(response)
             res.status(200).send(response)
-        })
+        }).catch(error => {
+            console.error('error', error);
+            res.status(500).json({ message: ' in singlebook '})
+          });
 
     },
 
@@ -54,7 +55,10 @@ module.exports = {
         // console.log('hitting delete',req.query.booktodelete);
         db.delete_book([booktodelete]).then(()=>{
             res.status(200).send('dlt scs')
-        })
+        }).catch(error => {
+            console.error('error', error);
+            res.status(500).json({ message: ' in deletebook '})
+          });
         
     },
 
@@ -63,8 +67,16 @@ module.exports = {
         const {id,userId} = req.body;
         db.book_like([userId,id]).then(()=>{
             res.status(200).send('book liked!')
-        })
+        });
         
+    },
+    bookUnlike: (req,res)=>{
+        const db = req.app.get('db');
+        const {bookid,userid} = req.params;
+        db.book_unlike([bookid, userid]).then(()=>{
+            // console.log('unliked'.req.params)
+            res.status(200).send('book unliked!')
+        });
     },
 
     pageCount: (req,res)=>{
@@ -73,7 +85,7 @@ module.exports = {
         // console.log(req.params)
         db.page_count([bookid]).then((response)=>{
             res.status(200).send(response[0])
-        })
+        });
     },
 
     commentCount: (req,res)=>{
@@ -83,7 +95,7 @@ module.exports = {
         db.comment_count([pageid]).then((response)=>{
             // console.log(response)
             res.status(200).send(response[0])
-        })
+        });
     },
     likeCount: (req,res)=>{
         const db = req.app.get('db');
@@ -92,7 +104,7 @@ module.exports = {
         db.book_like_count([bookid]).then((response)=>{
             // console.log(response[0])
             res.status(200).send(response[0])
-        })
+        });
     },
     pageLikeCount: (req,res)=>{
         const db = req.app.get('db');
@@ -100,7 +112,7 @@ module.exports = {
         // console.log(req.params)
         db.page_like_count([pageid]).then((response)=>{
             res.status(200).send(response[0])
-        })
+        });
     },
 
 ////////////post functions
@@ -111,10 +123,6 @@ module.exports = {
         db.create_page([ null, uDT, firstPage, userId, id ]).then((response)=>{
             // console.log('RESSSSSSS',response[0])
            res.status(200).json({postUser: response[0]})
-        })
-        .catch(error => {
-          console.error('error in  create page', error);
-          res.status(500).json({ message: ' in createPage '})
         });
     },
     createNextPage: (req,res)=>{
@@ -126,10 +134,6 @@ module.exports = {
             // console.log('RESSSSSSS',response[0])
 
            res.status(200).json({postUser: response[0]})
-        })
-        .catch(error => {
-          console.error('error in  create page', error);
-          res.status(500).json({ message: ' in createNextPage '})
         });
     },
     pageLike: (req,res)=>{
@@ -137,7 +141,16 @@ module.exports = {
         const {userId,pageId} = req.body;
         db.page_like([userId,pageId]).then(()=>{
             res.status(200).send('page liked!')
-        })
+        });
+        
+    },
+    pageUnlike: (req,res)=>{
+        const db = req.app.get('db');
+        const {userid,pageid} = req.params;
+        console.log('--------------------',req.params)
+        db.page_unlike([pageid,userid]).then(()=>{
+            res.status(200).send('page unliked!')
+        });
         
     },
 
@@ -150,7 +163,10 @@ module.exports = {
         db.get_previous_comments([pageid]).then((response)=>{
             // console.log(response)
             res.status(200).send(response)
-        })      
+        }).catch(error => {
+            console.error('error', error);
+            res.status(500).json({ message: ' in prevComments '})
+          });      
     },
 /////////////////////////////
 
@@ -169,6 +185,17 @@ module.exports = {
             
         })
 
+    },
+
+    getUserContent: (req,res)=>{
+        const db = req.app.get('db');
+        const {userid} = req.params;
+        console.log('>>>>>>',req.params)
+        db.get_user_books([userid]).then(response1=>{
+            db.get_user_posts([userid]).then(response2=>{
+                res.status(200).json({ userBooks: response1, userPosts: response2})
+            }).catch(err=>console.error('in get user content posts',err));
+        }).catch(err=>console.error('in get user content',err));
     },
 
 

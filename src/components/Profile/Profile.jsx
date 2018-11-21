@@ -4,6 +4,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {updateProfilePic} from '../../redux/reducer';
+import ProfileContent from '../ProfileContent/ProfileContent';
 
 class Profile extends Component {
 constructor(){
@@ -11,9 +12,25 @@ constructor(){
     this.state = {
         hover: false,
         imageInput: false,
-        uImage: ''
+        uImage: '',
+        contentShow: false,
     }
 }
+
+// componentDidMount(){
+//     this.getUserContent();
+// }
+
+// getUserContent = ()=>{
+//     axios.get(`/api/getusercontent/${this.props.userId}`).then(res=>{
+//         console.log('>>>>>>>',res.data)
+//         // this.setState({
+//         //     usersBooks: res.data.userBooks,
+//         //     usersPosts: res.data.userPosts
+//         // })
+//     })
+// }
+
 handleChange = (key, val) => {
     this.setState({
         [key]: val
@@ -31,6 +48,10 @@ editClicked = () => {
 }
 cancelClicked = () => {
     this.setState({ imageInput: false });
+}
+showUserContent = ()=>{
+    this.setState({ contentShow: !this.state.contentShow })
+    console.log(this.state.contentShow)
 }
 
 submitNewPic = () => {
@@ -64,9 +85,20 @@ submitNewPic = () => {
     // }
 
     render() {
-        // console.log('///////',this.props)
+        // console.log('///////',this.state.usersBooks)
+        // console.log('///////',this.state.usersPosts)
         const {lusername,first_name,last_name,bio,profilePic} = this.props;
         // this.changer()
+        const mapUsersBooks = this.props.usersBooks.map(book=>{
+            return (
+                <ProfileContent key={book.id} book={book} />
+            )
+        })
+        const mapUsersPosts = this.props.usersPosts.map(post=>{
+            return (
+                <ProfileContent key={post.id} post={post} />
+            )
+        })
 
         return (
             <div className="profilep">
@@ -76,27 +108,51 @@ submitNewPic = () => {
                              <img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={profilePic} alt=""/>
                         </div>
                     </div>    
-                <div style={{height:'10px'}}>{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.editClicked}  className='editpic'>Edit</button>:null}</div>
+                    <div style={{height:'10px'}}>{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.editClicked}  className='editpic'>Edit</button>:null}</div>
                 
-                <div style={this.style.div}><h2>Username: </h2><div>{lusername}</div></div>
-                <div style={this.style.div}><h2>Name: </h2><div>{first_name + ' ' + last_name}</div></div>
-                <div style={this.style.div}><h3>bio: </h3><div>{bio}</div></div>
-                <div style={{height:'10px'}}>{this.state.imageInput?<div className='editdiv'><input onChange={e=>this.handleChange('uImage',e.target.value)} placeholder='Image URL' type='text' /><button onClick={this.submitNewPic} className='ceditpic'>Submit</button><button onClick={this.cancelClicked} className='cceditpic'>X</button></div>:null}</div>
-                
+                    <div style={this.style.div}><h2>Username: </h2><div>{lusername}</div></div>
+                    <div style={this.style.div}><h2>Name: </h2><div>{first_name + ' ' + last_name}</div></div>
+                    <div style={this.style.div}><h3>bio: </h3><div>{bio}</div></div>
+                    <div style={{height:'10px'}}>
+                    {this.state.imageInput?
+                        <div className='editdiv'>
+                            <input onChange={e=>this.handleChange('uImage',e.target.value)} placeholder='Image URL' type='text' />
+                            <button onClick={this.submitNewPic} className='ceditpic'>Submit</button>
+                            <button onClick={this.cancelClicked} className='cceditpic'>X</button>
+                        </div>
+                    :null}
+                    </div>
+                    <button className='toggleContent' onClick={this.showUserContent}>Content by: {lusername}</button>
+                    <div className={this.state.contentShow?'showContent':'hideContent'}>
+                        <div className='showContentc'> 
+                            <div className='showContentcc'>
+                                {mapUsersBooks}
+                            </div>
+                           <hr/>
+                            <div className='showContentcc'>
+                                {mapUsersPosts}
+                            </div>
+
+                        </div>
+                            <button className='toggleContent2'  onClick={this.showUserContent}>Close</button>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 function mapStateToProps(iS){
-    const {userId,lusername,first_name,last_name,bio,profilePic}= iS;
+    const {userId,lusername,first_name,last_name,
+            bio,profilePic,usersBooks,usersPosts}= iS;
     return {
         userId,
         lusername,
         first_name,
         last_name,
         bio,
-        profilePic
+        profilePic,
+        usersBooks,
+        usersPosts
     }
 }
 

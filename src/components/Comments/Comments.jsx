@@ -35,7 +35,7 @@ class Comments extends Component {
             // console.log('--------new socket',typer)
             const {lusername} = this.props;
             if(typer.typingUser !== lusername){
-                return this.setState({ typing: true})
+                this.setState({ typing: true})
                 // if (typer.typingUser !== lusername && typer.erased){
                 //     this.setState({ typing: false})
                 // }
@@ -78,9 +78,6 @@ class Comments extends Component {
 
           if(val.length){
               socket.emit('typing', {userId, lusername})
-          } else if (!val.length){
-              let erased = 0
-              socket.emit('typing', {erased})
           }
         this.setState({message: val})
       }

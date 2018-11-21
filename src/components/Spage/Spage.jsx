@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './Spage.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
-// import { updateBooks } from '../../redux/reducer';
+import { updateLikedBooks, updateLikedPages  } from '../../redux/reducer';
 import { Link, withRouter } from 'react-router-dom';
 
 class Spage extends Component {
@@ -16,6 +16,42 @@ class Spage extends Component {
             pagelike: ''
         }
     }
+    componentDidMount(){
+       this.updateCommentCount();
+       this.updateLikeCount();
+      }
+
+      updateCommentCount = ()=>{
+        axios.get(`/api/page/${this.props.pageId}/commentcount`).then(res=>{
+            //   console.log(res.data)
+              this.setState({ count: res.data.count})
+            })
+      }
+
+      updateLikeCount = ()=>{
+        axios.get(`/api/page/${this.props.pageId}/pagelikecount`).then(res=>{
+            // console.log('???????????',res)
+            this.setState({ pagelike: res.data.count})
+          })
+      }
+      getAllLikes = ()=>{
+        const { userId, updateLikedBooks, updateLikedPages } =this.props;
+        axios.get(`/api/alllikes/${userId}`).then(res=>{
+            // console.log('++++++++++',res.data)
+        const {booklikes,postlikes} = res.data;
+        let likedBooks = booklikes.map(el=>{
+           return el.book_id;
+         })
+         // console.log('----',likedBooks)
+          let likedPosts = postlikes.map(ele=>{
+        return ele.post_id
+         })
+          // console.log('----',likedPosts)
+           updateLikedBooks(likedBooks);
+           updateLikedPages(likedPosts);
+        })
+    }
+
     mouseEnter = () => {
         this.setState({ hover: true });
       }
@@ -33,32 +69,38 @@ class Spage extends Component {
             })
       }
 
+ 
       updatePage = (val)=>{
           this.setState({
               nextPage: val
           })
       }
 
-      componentDidMount(){
-          axios.get(`/api/page/${this.props.pageId}/commentcount`).then(res=>{
-            //   console.log(res.data)
-              this.setState({ count: res.data.count})
-            })
-          axios.get(`/api/page/${this.props.pageId}/pagelikecount`).then(res=>{
-              console.log(res.data.count)
-              this.setState({ pagelike: res.data.count})
-            })
-        }
 
-        likePage = ()=>{
+    likePage = ()=>{
             const {userId,pageId} = this.props
             !userId?
             alert('You need to be logged in to like this page!')
             :
             axios.post(`/api/pagelike`, {userId,pageId}).then((res)=>{
-                console.log(res)
-            })
-        }
+                this.getAllLikes();
+             }).then(()=>{
+                this.updateLikeCount();
+             })
+            }
+        
+
+    unlikePage = ()=>{
+            const {userId,pageId} = this.props
+            !userId?
+            alert('You need to be logged in to like this page!')
+            :
+            axios.delete(`/api/pageunlike/${pageId}/${userId}`).then((res)=>{
+                this.getAllLikes();
+             }).then(()=>{
+                this.updateLikeCount();
+             })
+            }
 
       getTime = ()=>{
         let time = Date();
@@ -167,17 +209,28 @@ class Spage extends Component {
          }) 
         
      }
+     
     
 
+    //  let likes = this.props.likedPages.map(el=>{
+    //      return el.post_id})
     
     render(){
-        // console.log('```````````SPAGES', this.props)
+        // console.log('```````````SPAGES', this.props);
+        const {pageId,likedPages} = this.props;
+
 
     return (
         <div className="spagep">
             <div className="spagec">
         
-                {this.props.pimage?<div className='spagecc'>Posted by: {this.props.username}</div>:null}
+                {this.props.pimage?
+                <>
+                <div className='spagecc'>Posted by: {this.props.username}</div>
+                <div className='spagecc2'>{this.props.date}</div>
+                </>
+                :
+                null}
                 
                 <div>{this.props.pimage
                 ?
@@ -202,7 +255,17 @@ class Spage extends Component {
                 
                 }</div>
 
-                <div className='pagefooter'>{this.props.pimage?<div><span>Comments: {this.state.count}</span><span style={{marginLeft: '20px'}}>Likes: {this.state.pagelike}</span><button onClick={this.likePage} className='likebtn'>+</button></div>:null}{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}</div>
+                <div className='pagefooter'>
+                    {this.props.pimage?
+                        <div><span>Comments: {this.state.count}</span>
+                            <span style={{marginLeft: '20px'}}>Likes: {this.state.pagelike}</span>
+                            {likedPages.includes(pageId)?
+                                <button onClick={this.unlikePage} className='unlikebtn'>-</button>
+                            :
+                                <button onClick={this.likePage} className='likebtn'>+</button>}
+                        </div>
+                        :
+                        null}{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}</div>
                 
             </div>
         </div>
@@ -210,16 +273,17 @@ class Spage extends Component {
 };
 
 function mapStateToProps(iS){
-    const {userId,lusername,books} = iS;
+    const {userId,lusername,books,likedPages} = iS;
     return {
         userId,
         lusername,
-        books
+        books,
+        likedPages
     }
 }
 
 
-export default withRouter(connect(mapStateToProps)(Spage));
+export default withRouter(connect(mapStateToProps, { updateLikedBooks, updateLikedPages })(Spage));
 
 
 

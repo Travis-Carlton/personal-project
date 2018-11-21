@@ -18,7 +18,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     background: $back-sqr;
     box-shadow: 15px 15px 10px $shadow;
     animation: appearpro 1s ease-in-out 0s 1;
-    overflow: hidden;
+    // overflow: hidden;
        h2,h3{
            margin: 0;
        }
@@ -198,7 +198,68 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         justify-content: center;
         align-items: center;
     }
-
+    .hideContent{
+        display: none;
+    }
+    .showContent{
+        height: 220vh;
+        width: 100vw;
+        position: absolute;
+        background-color: rgba(26, 26, 46, 0.794);
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .showContentc{
+            position: absolute;
+            z-index: 2;
+            height: 80vh;
+            width: 80vw;
+            background: $back-sqr;
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            // justify-content: space-evenly;
+            align-items: center;
+            overflow-y: scroll;
+            > .showContentcc {
+                height: 300px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;     
+            }
+            >hr{
+                width: 600px;
+                margin: 10px auto 20px auto;
+            }
+        }
+    }
+    .toggleContent{
+        cursor: pointer;
+        width: 100px;
+        height: 30px;
+        margin: 0 100px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.858);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 10px 10px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        transition: .8s;
+        overflow: hidden;
+        margin: 10px;
+    }
+    .toggleContent:hover{
+        width: 220px;
+    }
+    .toggleContent2{
+        @extend .toggleContent;
+        position: absolute;
+        z-index: 3;
+        transform: translate(0,510px);
+    }
 }
 
 @media (min-width: 425px) and (max-width: 768px){

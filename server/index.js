@@ -294,11 +294,19 @@ app.get('/api/data', (req,res)=>{
 app.get('/api/alllikes/:userid', (req,res)=>{
   const db = req.app.get('db');
   const { userid } = req.params;
-  console.log(req.params)
-  db.all_likes([userid]).then(response=>{
-    console.log('--------',response)
-    res.status(200).send(response)
+  // console.log(req.params);
+
+  db.all_likes([userid]).then((response)=>{
+    db.all_page_likes([userid]).then(response2=>{
+      // console.log('boooooks',response);
+      // console.log('paaaages',response2);
+      res.status(200).json({booklikes: response, postlikes: response2})
+    })
   })
+ 
+  // console.log(booklikes)
+  // res.status(200).json({booklikes,postlikes})
+  
 })
 
 app.get(`/api/:pageid/prevcomments`, controller.prevComments);
@@ -321,16 +329,19 @@ app.get('/api/singleBook/:id', controller.singleBook);
 app.post('/api/createbook', controller.createBook);
 app.delete(`/api/deleteBook`, controller.deleteBook);
 app.post(`/api/booklike`, controller.bookLike);
+app.delete(`/api/bookunlike/:bookid/:userid`, controller.bookUnlike);
 //////////////////////////////
 
 ///////////Page related calls
 app.post('/api/createpage', controller.createPage);
 app.post('/api/createnextpage', controller.createNextPage);
-app.post(`/api/pagelike`, controller.pageLike)
+app.post(`/api/pagelike`, controller.pageLike);
+app.delete(`/api/pageunlike/:pageid/:userid`, controller.pageUnlike);
 //////////////////////////////
 
 //////////profile related calls
-app.patch('/api/updatePic/:id', controller.updatePic)
+app.patch('/api/updatePic/:id', controller.updatePic);
+app.get(`/api/getusercontent/:userid`, controller.getUserContent);
 /////////////////////////////
 
 const path = require('path')

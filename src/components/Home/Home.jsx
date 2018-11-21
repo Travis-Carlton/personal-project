@@ -35,9 +35,10 @@ constructor(props){
 }
 
 function mapStateToProps(iS){
-    const {books} = iS;
+    const {books,likedBooks} = iS;
     return {
-        books
+        books,
+        likedBooks
     }
 }
 

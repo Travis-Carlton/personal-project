@@ -1,0 +1,1 @@
+delete from perpostlikes where post_id = $1 and user_id = $2;

@@ -4,18 +4,19 @@ import axios from 'axios';
 import routes from './routes';
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
-import { updateID, updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic } from './redux/reducer';
+import { updateID, updateBooks, updateUsername, updateFirstName, 
+  updateLastName, updateBio, updateProfilePic, updateLikedBooks, 
+  updateLikedPages, updateUsersBooks, updateUsersPages } from './redux/reducer';
 import Contact from './components/Contact/Contact';
 
 import Nav from './components/Nav/Nav';
 
 class App extends Component {
 
-componentDidMount(){
+componentWillMount(){
 
   this.getData();
   this.getUser();
-
   
   // const user = JSON.parse(window.sessionStorage.getItem('user'));
   // console.log(user);
@@ -26,6 +27,7 @@ componentDidMount(){
   //   updateBio(user.bio);
   //   updateProfilePic(user.pic);
   }
+
  
 
 getUser = ()=>{
@@ -41,13 +43,29 @@ getUser = ()=>{
       updateProfilePic(user.pic);
       updateID(user.id)
   }
-}).then(()=>{
-  const {userId} =this.props;
+})
+.catch(err => console.log(err))
+.then(()=>{
+  const { userId, updateLikedBooks, updateLikedPages } =this.props;
   axios.get(`/api/alllikes/${userId}`).then(res=>{
-  // console.log(res.data)
+    // console.log('++++++++++',res.data)
+    const {booklikes,postlikes} = res.data;
+    let likedBooks = booklikes.map(el=>{
+      return el.book_id;
+    })
+    // console.log('----',likedBooks)
+    let likedPosts = postlikes.map(ele=>{
+      return ele.post_id
+    })
+    // console.log('----',likedPosts)
+    updateLikedBooks(likedBooks);
+    updateLikedPages(likedPosts);
+  }).then(()=>{
+    this.getUserContent();
 
   })
 })
+.catch(err => console.log(err))
 }
 
 getData = ()=>{
@@ -55,6 +73,14 @@ getData = ()=>{
     // const {books} = this.props;
     // console.log('app.js-----',res.data)
     this.props.updateBooks(res.data)
+  })
+}
+getUserContent = ()=>{
+  const { updateUsersBooks, updateUsersPages } = this.props;
+  axios.get(`/api/getusercontent/${this.props.userId}`).then(res=>{
+      // console.log('>>>>>>>',res.data)
+      updateUsersBooks(res.data.userBooks)
+      updateUsersPages(res.data.userPosts)
   })
 }
 
@@ -89,4 +115,7 @@ function mapStateToProps(iS){
   }
 }
 
-export default withRouter(connect(mapStateToProps, {updateID, updateBooks, updateUsername, updateFirstName, updateLastName, updateBio, updateProfilePic })(App));
+export default withRouter(connect(mapStateToProps, 
+  {updateID, updateBooks, updateUsername, updateFirstName,
+     updateLastName, updateBio, updateProfilePic, updateLikedBooks, 
+        updateLikedPages, updateUsersBooks, updateUsersPages })(App));

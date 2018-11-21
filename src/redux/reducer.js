@@ -11,7 +11,11 @@ const iState = {
     bookcover: '',
     books: [],
     profilePic: '',
-    userForPosts: ''
+    userForPosts: '',
+    likedBooks: [],
+    likedPages: [],
+    usersBooks: [],
+    usersPosts: []
 };
 
 const UPDATE_USERNAME = 'UPDATE_USERNAME';
@@ -27,6 +31,10 @@ const UPDATE_BOOK_ID = 'UPDATE_BOOK_ID';
 const CLEAR_STATE = 'CLEAR_STATE';
 const PROFILE_PIC = 'PROFILE_PIC';
 const USER_FOR_POSTS = 'USER_FOR_POSTS';
+const LIKED_BOOKS = 'LIKED_BOOKS';
+const LIKED_PAGES = 'LIKED_PAGES';
+const UPDATE_USERS_BOOKS = 'UPDATE_USERS_BOOKS';
+const UPDATE_USERS_PAGES = 'UPDATE_USERS_PAGES';
 
 
 export default function reducer(iS = iState, action){
@@ -55,6 +63,14 @@ export default function reducer(iS = iState, action){
             return {...iS, profilePic: action.payload}
         case USER_FOR_POSTS:
             return {...iS, userForPosts: action.payload}
+        case LIKED_BOOKS:
+            return {...iS, likedBooks: action.payload}
+        case LIKED_PAGES:
+            return {...iS, likedPages: action.payload}
+        case UPDATE_USERS_BOOKS:
+            return {...iS, usersBooks: action.payload}
+        case UPDATE_USERS_PAGES:
+            return {...iS, usersPosts: action.payload}
         case CLEAR_STATE:
             return {...iS, ...action.payload}
            
@@ -136,6 +152,31 @@ export function updateUserForPosts(user){
         payload: user
     }
 }
+export function updateLikedBooks(books){
+    return {
+        type: LIKED_BOOKS,
+        payload: books
+    }
+}
+export function updateLikedPages(pages){
+    return {
+        type: LIKED_PAGES,
+        payload: pages
+    }
+}
+export function updateUsersBooks(books){
+    return {
+        type: UPDATE_USERS_BOOKS,
+        payload: books
+    }
+}
+export function updateUsersPages(pages){
+    return {
+        type: UPDATE_USERS_PAGES,
+        payload: pages
+    }
+}
+
 export function clearUser(){
     return {
         type: CLEAR_STATE,
