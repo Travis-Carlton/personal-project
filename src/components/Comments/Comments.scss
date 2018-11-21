@@ -150,6 +150,10 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
        
 
     }
+    .cmntsec::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* make scrollbar transparent */
+     }
     // .cmntinput{
     //     // position: sticky;
     // }
@@ -198,6 +202,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
           }
     }
     .submitbtn{
+        cursor: pointer;
         margin-top: 10px;
         // margin-bottom: 10px;
         font-size: 20px;

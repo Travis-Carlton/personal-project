@@ -3,7 +3,8 @@ import './CreateEpic.scss';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {updateBookName,updateBookCover,updateBooks} from '../../redux/reducer';
+import { updateBookName, updateBookCover, updateBooks, 
+    updateUsersBooks, updateUsersPages } from '../../redux/reducer';
 
 class CreateEpic extends Component {
     constructor(){
@@ -60,12 +61,22 @@ class CreateEpic extends Component {
                     axios.post('/api/createpage', { uDT, firstPage, userId, id  })
             }).then((res)=>{
                 this.setState({startingImages: []});
+                this.getUserContent();
                 this.props.history.push('/');
             }).catch(err => console.log(err))
         })
 
         })
     }
+
+    getUserContent = ()=>{
+        const { updateUsersBooks, updateUsersPages } = this.props;
+        axios.get(`/api/getusercontent/${this.props.userId}`).then(res=>{
+            // console.log('>>>>>>>',res.data)
+            updateUsersBooks(res.data.userBooks)
+            updateUsersPages(res.data.userPosts)
+        })
+      }
 
     handleChange = (key, val) => {
         this.setState({
@@ -170,4 +181,6 @@ function mapStateToProps(iS){
     }
 }
 
-export default withRouter(connect(mapStateToProps, {updateBookCover,updateBookName,updateBooks})(CreateEpic));
+export default withRouter(connect(mapStateToProps, 
+    { updateBookCover, updateBookName, updateBooks, updateUsersBooks, 
+        updateUsersPages })(CreateEpic));

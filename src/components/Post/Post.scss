@@ -62,6 +62,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             width: 20px;
             height: 20px;
             transition: .8s;
+            transform: translate(0,-1px);
     }
       .deleteBtn:hover{
             font-size: 10px;

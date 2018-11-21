@@ -233,6 +233,10 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
                 margin: 10px auto 20px auto;
             }
         }
+        .showContentc::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; /* make scrollbar transparent */
+         }
     }
     .toggleContent{
         cursor: pointer;

@@ -11,6 +11,10 @@
     overflow-x: scroll;
     overflow-y: visible;
 }
+.pagesp::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+ }
 .pagesc{
     margin: 0 100px;
 }

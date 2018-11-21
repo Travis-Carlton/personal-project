@@ -51,7 +51,7 @@ cancelClicked = () => {
 }
 showUserContent = ()=>{
     this.setState({ contentShow: !this.state.contentShow })
-    console.log(this.state.contentShow)
+    // console.log(this.state.contentShow)
 }
 
 submitNewPic = () => {

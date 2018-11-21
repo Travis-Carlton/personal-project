@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './Post.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { updateBooks, updateLikedBooks, updateLikedPages  } from '../../redux/reducer';
+import { updateBooks, updateLikedBooks, updateLikedPages, 
+    updateUsersBooks, updateUsersPages } from '../../redux/reducer';
 import { Link, withRouter } from 'react-router-dom';
 
 class Post extends Component {
@@ -70,11 +71,20 @@ class Post extends Component {
         :
         axios.delete(`/api/deleteBook?booktodelete=${this.props.book.id}`).then(()=>{
             axios.get('/api/data').then(res=>{
-                this.props.updateBooks(res.data)
+                this.props.updateBooks(res.data);
+                this.getUserContent();
               })
         })
        
     }
+    getUserContent = ()=>{
+        const { updateUsersBooks, updateUsersPages } = this.props;
+        axios.get(`/api/getusercontent/${this.props.userId}`).then(res=>{
+            // console.log('>>>>>>>',res.data)
+            updateUsersBooks(res.data.userBooks)
+            updateUsersPages(res.data.userPosts)
+        })
+      }
 
     likeBook = ()=>{
         const {id} = this.props.book;
@@ -156,4 +166,6 @@ function mapStateToProps(iS){
     }
 }
 
-export default withRouter(connect(mapStateToProps, {updateBooks, updateLikedBooks, updateLikedPages })(Post));
+export default withRouter(connect(mapStateToProps, 
+    {updateBooks, updateLikedBooks, updateLikedPages, 
+        updateUsersBooks, updateUsersPages  })(Post));

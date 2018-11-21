@@ -31,7 +31,7 @@ class Pages extends Component {
     render() {
         // console.log('-----pages', this.state.pages)
         let mapPages = this.state.pages.map((page)=>{
-            console.log('-----pages',page)
+            // console.log('-----pages',page)
             return (
                <div key={page.id} className="pagesc"><Spage pageId={page.id} username={page.username} date={page.dates} pimage={page.pimage} ></Spage></div>                
             )

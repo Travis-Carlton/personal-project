@@ -11,6 +11,10 @@
     overflow-x: scroll;
     overflow-y: visible;
 }
+.homep::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+ }
 
 .homec{
     margin: 0 100px;
