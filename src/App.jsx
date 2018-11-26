@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { updateID, updateBooks, updateUsername, updateFirstName, 
   updateLastName, updateBio, updateProfilePic, updateLikedBooks, 
-  updateLikedPages, updateUsersBooks, updateUsersPages } from './redux/reducer';
+  updateLikedPages, updateUsersBooks, updateUsersPages, updateEmail } from './redux/reducer';
 import Contact from './components/Contact/Contact';
 
 import Nav from './components/Nav/Nav';
@@ -31,7 +31,8 @@ componentWillMount(){
  
 
 getUser = ()=>{
-  const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
+  const {updateID,updateUsername,updateFirstName,
+    updateLastName,updateBio,updateProfilePic,updateEmail} = this.props;
   axios.get('/api/auth').then(res=>{  
     const user = res.data;
     // console.log('appjs-------',res.data);
@@ -41,7 +42,8 @@ getUser = ()=>{
       updateLastName(user.last);
       updateBio(user.bio);
       updateProfilePic(user.pic);
-      updateID(user.id)
+      updateEmail(user.email);
+      updateID(user.id);
   }
 })
 .catch(err => console.log(err))
@@ -118,4 +120,4 @@ function mapStateToProps(iS){
 export default withRouter(connect(mapStateToProps, 
   {updateID, updateBooks, updateUsername, updateFirstName,
      updateLastName, updateBio, updateProfilePic, updateLikedBooks, 
-        updateLikedPages, updateUsersBooks, updateUsersPages })(App));
+        updateLikedPages, updateUsersBooks, updateUsersPages, updateEmail })(App));

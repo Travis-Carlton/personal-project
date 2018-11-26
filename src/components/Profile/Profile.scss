@@ -19,9 +19,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     box-shadow: 15px 15px 10px $shadow;
     animation: appearpro 1s ease-in-out 0s 1;
     // overflow: hidden;
-       h2,h3{
-           margin: 0;
-       }
+
     @keyframes appearpro {
         0% {
         
@@ -47,21 +45,25 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     text-shadow: 5px 5px 1px $text-shadow;
     color: white;
     font-size: 24px;
-       div > div {
-            text-align: center;
+    h3,h4{
+        margin: 10px auto 0 auto;
+    }
+    div > div {
+        text-align: center;
+    }
+    .profileInfo{
+        @extend .profilec;
+        flex-direction: row;
+        justify-content: space-evenly;
+        overflow-y: scroll;
+        max-height: 300px;
+        width: 450px;
+        
     }
 
     .postcc{
         margin-bottom: 20px;
     }
-
-    // img{
-    //     height: 200px;
-    //     width: 200px;
-    //     border-radius: 50%;
-    //     box-shadow: 15px 15px 10px $shadow;
-    //     margin-bottom: 30px;
-    // }
  
     .diamond, .dia {
         margin: 0 auto;
@@ -222,16 +224,17 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             // justify-content: space-evenly;
             align-items: center;
             overflow-y: scroll;
+            hr{
+                width: 500px;
+                color: white;
+            }
             > .showContentcc {
                 height: 300px;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-evenly;     
             }
-            >hr{
-                width: 600px;
-                margin: 10px auto 20px auto;
-            }
+            
         }
         .showContentc::-webkit-scrollbar {
             width: 0px;
@@ -254,6 +257,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         transition: .8s;
         overflow: hidden;
         margin: 10px;
+        transform: translate(0,18px);
     }
     .toggleContent:hover{
         width: 220px;
@@ -264,7 +268,34 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
         z-index: 3;
         transform: translate(0,510px);
     }
+    .toggleContent3{
+        cursor: pointer;
+        z-index: 0;
+        margin: 0 5px;
+        background: rgba(0, 0, 0, 0);
+        box-shadow: 2px 2px 1px white;
+        text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+        border: none;
+        border-radius: 5px 5px;
+        color: white;
+        font-family: 'Permanent Marker', cursive;
+        transition: .8s;
+        font-size: 12px;
+        width: 60px;
+        margin: 10px auto 0 auto;
+        transform: translate(0,10px);
+    } .toggleContent3:hover{
+        background: rgba(0, 0, 0, 0.858);
+    }
+
+    .profileEdit{
+        @extend .showContent;
+    }
+    .profileEditClosed{
+        display: none;
+    }
 }
+
 
 @media (min-width: 425px) and (max-width: 768px){
     .profilep{

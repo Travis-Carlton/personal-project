@@ -11,6 +11,7 @@ const iState = {
     bookcover: '',
     books: [],
     profilePic: '',
+    email: '',
     userForPosts: '',
     likedBooks: [],
     likedPages: [],
@@ -30,6 +31,7 @@ const UPDATE_ID = 'UPDATE_ID';
 const UPDATE_BOOK_ID = 'UPDATE_BOOK_ID';
 const CLEAR_STATE = 'CLEAR_STATE';
 const PROFILE_PIC = 'PROFILE_PIC';
+const EMAIL = 'EMAIL';
 const USER_FOR_POSTS = 'USER_FOR_POSTS';
 const LIKED_BOOKS = 'LIKED_BOOKS';
 const LIKED_PAGES = 'LIKED_PAGES';
@@ -61,6 +63,8 @@ export default function reducer(iS = iState, action){
             return {...iS, bookId: action.payload}
         case PROFILE_PIC:
             return {...iS, profilePic: action.payload}
+        case EMAIL:
+            return {...iS, email: action.payload}
         case USER_FOR_POSTS:
             return {...iS, userForPosts: action.payload}
         case LIKED_BOOKS:
@@ -144,6 +148,12 @@ export function updateProfilePic(pic){
     return {
         type: PROFILE_PIC,
         payload: pic
+    }
+}
+export function updateEmail(email){
+    return {
+        type: EMAIL,
+        payload: email
     }
 }
 export function updateUserForPosts(user){

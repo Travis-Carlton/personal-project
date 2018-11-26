@@ -78,7 +78,7 @@ app.post('/api/signup', (req,res)=>{
     // console.log('request body----',req.body)
     const db = req.app.get('db');
     const saltRounds = 12;
-    const {username,password,firstName,lastName,bio,profilePic} = req.body;
+    const {username,password,firstName,lastName,bio,profilePic,email} = req.body;
     let profilePicture = ()=>{
         if(profilePic.length<7){
             return 'https://d28sdlh8venwby.cloudfront.net/assets/missing-profile-326c4759d9ad53fa5bc720276bfe604c25a0c53c37b314eeef1bfa2cc1c5c514.png'
@@ -94,9 +94,11 @@ app.post('/api/signup', (req,res)=>{
         // console.log('all good!')
             bcrypt.hash(password,saltRounds).then(hash =>{
 
-        db.signup([username, hash, firstName, lastName, bio, profilePicture]).then((user) => {
+        db.signup([username, hash, firstName, lastName, bio, profilePicture, email]).then((user) => {
             // console.log('user info----',user);
-            req.session.user = {id: user[0].id, username, firstName, lastName, bio, profilePicture };
+            req.session.user = {id: user[0].id, username: user[0].username, 
+              firstName: user[0].first_name, lastName: user[0].last_name, bio: user[0].bio, 
+              profilePicture: user[0].profile_pic, email: user[0].user_email };
             res.json({ user: req.session.user })
           }).catch(error => {
           console.error('error', error);
@@ -120,13 +122,13 @@ app.post('/api/signup', (req,res)=>{
 });
 
 app.post('/api/login', (req,res)=>{
-    // console.log('---------login', req.body)
+    // console.log('---------login', req.session)
     const {username,password} = req.body;
     const db = req.app.get('db');
     db.get_user([username]).then(users => {
+      
         if(users.length){
             bcrypt.compare(password,users[0].password).then(passwordsMatch => {
-
                 if (passwordsMatch) {
                   req.session.user = { 
                       username: users[0].username, 
@@ -134,6 +136,7 @@ app.post('/api/login', (req,res)=>{
                       last: users[0].last_name,
                       bio: users[0].bio,
                       pic: users[0].profile_pic,
+                      email: users[0].user_email,
                       id: users[0].id
                     };
                     // console.log(req.session)
@@ -342,6 +345,21 @@ app.delete(`/api/pageunlike/:pageid/:userid`, controller.pageUnlike);
 //////////profile related calls
 app.patch('/api/updatePic/:id', controller.updatePic);
 app.get(`/api/getusercontent/:userid`, controller.getUserContent);
+app.put(`/api/profile/edit`, controller.profileEdit);
+app.get(`/api/:username/:email`, controller.checkForUserAndEmail);
+app.patch(`/api/newpassword`, (req,res)=>{
+    const db = req.app.get('db');
+    const saltRounds = 12;
+    const { password, username, email } = req.body;
+    console.log('>>>>>>',req.body)
+
+    bcrypt.hash(password,saltRounds).then(hash =>{
+
+      db.new_password([hash,username,email]).then(response=>{
+        res.status(200).send('success')
+      })
+    })
+});
 /////////////////////////////
 
 const path = require('path')

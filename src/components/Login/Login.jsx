@@ -3,9 +3,10 @@ import './Login.scss';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import { updateID, updateUsername, updateFirstName, 
     updateLastName, updateBio, updateProfilePic, updateLikedBooks, 
-    updateLikedPages, updateUsersBooks, updateUsersPages  } from '../../redux/reducer';
+    updateLikedPages, updateUsersBooks, updateUsersPages, updateEmail } from '../../redux/reducer';
 
 
 class Login extends Component{
@@ -13,7 +14,8 @@ class Login extends Component{
         super();
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            showForgotPassword: false
         }
     }
 
@@ -29,7 +31,8 @@ class Login extends Component{
     }
 
     login = ()=>{
-        const {updateID,updateUsername,updateFirstName,updateLastName,updateBio,updateProfilePic} = this.props;
+        const {updateID,updateUsername,updateFirstName,
+            updateLastName,updateBio,updateProfilePic,updateEmail} = this.props;
         const {username, password} = this.state;
         
         !username || !password ?
@@ -45,15 +48,17 @@ class Login extends Component{
             updateLastName(user.last);
             updateBio(user.bio);
             updateProfilePic(user.pic);
+            updateEmail(user.email);
             updateID(user.id);
-            this.props.history.push('/');
+            // this.props.history.push('/');
+            window.location.assign('/')
             // console.log('user id ------',user.id)
         })
         .catch(err => console.log(err))
         .then(()=>{
             const { userId, updateLikedBooks, updateLikedPages } =this.props;
             axios.get(`/api/alllikes/${userId}`).then(res=>{
-              console.log('++++++++++',res.data)
+            //   console.log('++++++++++',res.data)
               const {booklikes,postlikes} = res.data;
               updateLikedBooks(booklikes);
               updateLikedPages(postlikes);
@@ -74,6 +79,11 @@ class Login extends Component{
         })
       }
 
+      toggleForgotPassword = ()=>{
+        this.setState({ showForgotPassword: !this.state.showForgotPassword })
+        // console.log(this.state.contentShow)
+    }
+
 render(){
 
     return (
@@ -83,8 +93,12 @@ render(){
              
                 <label>Username: </label><input onChange={e=>this.upUsername(e.target.value)} type="text" required/>
                 <label>Password: </label><input onChange={e=>this.upPassword(e.target.value)} type="password" required/>
+                <div style={{height:'50px'}}><button onClick={this.toggleForgotPassword} className='fpbtn' >Forgot Password</button></div>
                 <div style={{height:'50px'}}><button onClick={this.login}>Login</button></div>
-            
+
+                <div className={this.state.showForgotPassword?'showFP':'hideFP'}>
+                        <ForgotPassword toggleForgotPassword={this.toggleForgotPassword} />
+                </div>
             </div>
         </div>
     )};
@@ -100,4 +114,4 @@ function mapStateToProps(iS){
 export default withRouter(connect(mapStateToProps, 
     { updateID, updateUsername, updateFirstName, updateLastName, 
         updateBio, updateProfilePic, updateLikedBooks, updateLikedPages, 
-        updateUsersBooks, updateUsersPages  })(Login));
+        updateUsersBooks, updateUsersPages, updateEmail })(Login));

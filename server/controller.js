@@ -147,7 +147,7 @@ module.exports = {
     pageUnlike: (req,res)=>{
         const db = req.app.get('db');
         const {userid,pageid} = req.params;
-        console.log('--------------------',req.params)
+        // console.log('--------------------',req.params)
         db.page_unlike([pageid,userid]).then(()=>{
             res.status(200).send('page unliked!')
         });
@@ -190,13 +190,47 @@ module.exports = {
     getUserContent: (req,res)=>{
         const db = req.app.get('db');
         const {userid} = req.params;
-        console.log('>>>>>>',req.params)
+        // console.log('>>>>>>',req.params)
         db.get_user_books([userid]).then(response1=>{
             db.get_user_posts([userid]).then(response2=>{
                 res.status(200).json({ userBooks: response1, userPosts: response2})
             }).catch(err=>console.error('in get user content posts',err));
         }).catch(err=>console.error('in get user content',err));
     },
+
+    profileEdit: (req,res)=>{
+        const db = req.app.get('db');
+        // console.log('--------',req.body)
+        const { userId, firstName, lastName, bio, profilePic, email } = req.body;
+        db.profile_edit_page([userId,firstName,lastName,bio,profilePic,email]).then(response=>{
+            // console.log('-------',response[0])
+            // req.session.user = {
+            // id: response[0].id,
+            // firstName: response[0].first_name,
+            // lastName: response[0].last_name,
+            // bio: response[0].bio,
+            // profilePicture: response[0].profile_pic,
+            // email: response[0].user_email
+            // }
+                req.session.destroy();
+            //   res.status(200).json({ user: req.session.user })
+            //   console.log('{{{{{{{{',req.session)
+        })
+    },
+
+    checkForUserAndEmail: (req,res)=>{
+        const db = req.app.get('db');
+        const {username,email} = req.params;
+        // console.log('?????',req.params);
+        db.check_forgot_password([username,email]).then(response=>{
+            console.log(response[0])
+            if(response[0].count == 1){
+                res.status(200).send('correct')
+            } else {
+                res.status(200).send('incorrect')
+            }
+        })
+    }
 
 
 }

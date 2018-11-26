@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './Spage.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { updateLikedBooks, updateLikedPages  } from '../../redux/reducer';
+import { updateLikedBooks, updateLikedPages, 
+    updateUsersBooks, updateUsersPages } from '../../redux/reducer';
 import { Link, withRouter } from 'react-router-dom';
 
 class Spage extends Component {
@@ -127,6 +128,15 @@ class Spage extends Component {
         }
     }
 
+    getUserContent = ()=>{
+        const { updateUsersBooks, updateUsersPages } = this.props;
+        axios.get(`/api/getusercontent/${this.props.userId}`).then(res=>{
+            // console.log('>>>>>>>',res.data)
+            updateUsersBooks(res.data.userBooks)
+            updateUsersPages(res.data.userPosts)
+        })
+    }
+
     createPage = ()=>{  
 
         const nextPage = this.state.nextPage[0];
@@ -145,12 +155,14 @@ class Spage extends Component {
         axios.post('/api/createnextpage', { uDT, nextPage, userId, bookid }).then(res=>{
             // console.log(res)
             this.setState({ nextPage: []});
-            getPages()
+            getPages();
+            this.getUserContent();
             // this.props.history.push(window.location.pathname);
             // axios.get(`/api/singleBook/${bookid}`)
             })
         })
     }
+
     
 
     // deletePage = ()=>{
@@ -283,7 +295,9 @@ function mapStateToProps(iS){
 }
 
 
-export default withRouter(connect(mapStateToProps, { updateLikedBooks, updateLikedPages })(Spage));
+export default withRouter(connect(mapStateToProps, 
+    { updateLikedBooks, updateLikedPages, updateUsersBooks, 
+        updateUsersPages })(Spage));
 
 
 

@@ -62,7 +62,8 @@ class CreateEpic extends Component {
             }).then((res)=>{
                 this.setState({startingImages: []});
                 this.getUserContent();
-                this.props.history.push('/');
+                // this.props.history.push('/');
+                window.location.assign('/')
             }).catch(err => console.log(err))
         })
 

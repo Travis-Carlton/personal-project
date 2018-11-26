@@ -126,7 +126,42 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
                     width: 130px;
                     height: 40px;        
                 }
-   
+        .fpbtn{
+            cursor: pointer;
+            z-index: 0;
+            margin: 0 5px;
+            background: rgba(0, 0, 0, 0);
+            box-shadow: 2px 2px 1px white;
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.459);
+            border: none;
+            border-radius: 5px 5px;
+            color: white;
+            font-family: 'Permanent Marker', cursive;
+            transition: .8s;
+            font-size: 12px;
+            width: 130px;
+            height: 30px;
+            transform: translate(0,-15px)
+        }
+        .fpbtn:hover{
+         background: rgba(0, 0, 0, 0.858);
+         width: 130px;
+         height: 30px;
+        }
+        
+        .hideFP{
+            display: none;
+        }
+        .showFP{
+            height: 220vh;
+            width: 100vw;
+            position: absolute;
+            background-color: rgba(26, 26, 46, 0.794);
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 }
 
 @media (min-width: 425px) and (max-width: 768px){
