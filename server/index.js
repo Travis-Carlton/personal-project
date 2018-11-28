@@ -8,6 +8,9 @@ const nodemailer = require('nodemailer');
 const app = express();
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
+// const twilio = require('twilio');
+// const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 
 // const server = require('http').createServer()
 // const io = require('socket.io')(server)
@@ -15,6 +18,7 @@ const io = require('socket.io')(server)
 // controllers
 const controller = require('./controller.js');
 const creds = require('../config/config.js');
+const sms = require('./send_sms.js');
 
 
 massive(process.env.CONNECTION_STRING).then(database => {
@@ -35,6 +39,22 @@ app.use(session({
   }));
   
 app.use(express.static(`${__dirname}/../build`));
+
+
+
+////////// twilio //////////////
+
+// app.post('/sms', (req, res) => {
+//   const twiml = new MessagingResponse();
+
+//   twiml.message('The Robots are coming! Head for the hills!');
+
+//   res.writeHead(200, {'Content-Type': 'text/xml'});
+//   res.end(twiml.toString());
+// });
+
+///////////////////////////////
+
 
 ///////// Sockets.io  /////////
 
@@ -360,6 +380,12 @@ app.patch(`/api/newpassword`, (req,res)=>{
       })
     })
 });
+/////////////////////////////
+
+/////// Twilio SMS /////////
+
+app.post(`/api/sms`, sms.sms);
+
 /////////////////////////////
 
 const path = require('path')

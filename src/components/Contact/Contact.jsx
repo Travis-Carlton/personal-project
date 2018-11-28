@@ -8,20 +8,31 @@ export default class Contact extends Component {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
+        const phone = document.getElementById('phone').value;
+        axios.post(`/api/sms`, {name,phone}).then(res=>console.log(res))
         axios.post('/api/send', {name,email,message}).then((response)=>{
-            if (response.data.msg === 'success'){
-                alert("Message Sent."); 
-                this.resetForm();
-                window.close();
-            }else if(response.data.msg === 'fail'){
-                alert("Message failed to send.")
-            }
-        })
+            this.resetForm();
+            window.close();
+            // if (response.data.msg === 'success'){
+            //     alert("Message Sent."); 
+            //     this.resetForm();
+            //     window.close();
+            // }
+            // else if(response.data.msg === 'fail'){
+            //     alert("Message failed to send.")
+            // }
+        });
+        
     }
 
     resetForm(){
         document.getElementById('contact-form').reset();
     }
+
+    // sms = (name)=>{
+    //     const phone = document.getElementById('phone').value;
+    //     axios.post(`/api/sms`, {name,phone}).then(res=>console.log(res))
+    // }
 
 
     style = {
@@ -31,7 +42,7 @@ export default class Contact extends Component {
             justifyContent: 'center',
             alignItems: 'center',
             background: 'rgba(90, 95, 110, 0.748)',
-            height: '350px',
+            height: '420px',
             width: '250px',
             margin: '0 auto',
             
@@ -85,7 +96,7 @@ export default class Contact extends Component {
 
     render() {
         return (
-            <div style={{paddingTop:'50px'}}>
+            <div style={{paddingTop:'20px'}}>
             <form style={this.style.form} id="contact-form" onSubmit={this.handleSubmit} method="POST">
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label} for="name">Name</label>
@@ -93,7 +104,11 @@ export default class Contact extends Component {
                 </div>
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label} for="exampleInputEmail1">Email address</label>
-                    <input style={this.style.input} type="email" className="form-control" id="email" aria-describedby="emailHelp" />
+                    <input style={this.style.input} placeholder='ex: something@email.com' type="email" className="form-control" id="email" aria-describedby="emailHelp" />
+                </div>
+                <div style={this.style.div} className="form-group">
+                    <label style={this.style.label}  for="exampleInputPhone">Phone number</label>
+                    <input style={this.style.input} placeholder='ex: 1235550123' type="number" className="form-control" id="phone" aria-describedby="emailHelp" />
                 </div>
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label} for="message">Message</label>

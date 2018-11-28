@@ -224,7 +224,7 @@ module.exports = {
         // console.log('?????',req.params);
         db.check_forgot_password([username,email]).then(response=>{
             console.log(response[0])
-            if(response[0].count == 1){
+            if(response[0].count === 1){
                 res.status(200).send('correct')
             } else {
                 res.status(200).send('incorrect')
