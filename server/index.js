@@ -44,7 +44,7 @@ app.use(express.static(`${__dirname}/../build`));
 
 ////////// twilio //////////////
 
-// app.post('/sms', (req, res) => {
+// app.post('/api/sms', (req, res) => {
 //   const twiml = new MessagingResponse();
 
 //   twiml.message('The Robots are coming! Head for the hills!');

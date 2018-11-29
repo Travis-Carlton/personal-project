@@ -9,7 +9,7 @@ export default class Contact extends Component {
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
         const phone = document.getElementById('phone').value;
-        axios.post(`/api/sms`, {name,phone}).then(res=>console.log(res))
+        // axios.post(`/api/sms`, {name,phone}).then(res=>console.log(res))
         axios.post('/api/send', {name,email,message}).then((response)=>{
             this.resetForm();
             window.close();
@@ -100,19 +100,19 @@ export default class Contact extends Component {
             <form style={this.style.form} id="contact-form" onSubmit={this.handleSubmit} method="POST">
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label} for="name">Name</label>
-                    <input style={this.style.input} type="text" className="form-control" id="name" />
+                    <input style={this.style.input} type="text" className="form-control" id="name" required/>
                 </div>
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label} for="exampleInputEmail1">Email address</label>
-                    <input style={this.style.input} placeholder='ex: something@email.com' type="email" className="form-control" id="email" aria-describedby="emailHelp" />
+                    <input style={this.style.input} placeholder='ex: something@email.com' type="email" className="form-control" id="email" aria-describedby="emailHelp" required/>
                 </div>
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label}  for="exampleInputPhone">Phone number</label>
-                    <input style={this.style.input} placeholder='ex: 1235550123' type="number" className="form-control" id="phone" aria-describedby="emailHelp" />
+                    <input style={this.style.input} placeholder='ex: 1235550123' type="number" minLength='9' maxLength='9' className="form-control" id="phone" aria-describedby="emailHelp" required/>
                 </div>
                 <div style={this.style.div} className="form-group">
                     <label style={this.style.label} for="message">Message</label>
-                    <textarea style={this.style.textarea} className="form-control" rows="5" id="message"></textarea>
+                    <textarea style={this.style.textarea} className="form-control" rows="5" id="message" required></textarea>
                 </div>
                 <button style={this.style.btn} type="submit" className="btn btn-primary">Submit</button>
                 
