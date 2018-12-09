@@ -164,7 +164,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     }
 }
 
-@media (min-width: 425px) and (max-width: 768px){
+@media (min-width: 426px) and (max-width: 768px){
     .spagep{
         height: 500px;
         width: 400px;
@@ -179,34 +179,60 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
     }
 }
 
-@media (min-width: 320px) and (max-width: 425px){
-   .spagep{
-       height: 425px;
-       width: 350px;
-   }
-   .spagec{
-       .spagecc{
-           font-size: 20px;
-       }
-       img{
-           height: 350px;
-           width: 300px;
-       }
-   }
-}
+// @media (min-width: 320px) and (max-width: 425px){
+//    .spagep{
+//        height: 425px;
+//        width: 350px;
+//    }
+//    .spagec{
+//        .spagecc{
+//            font-size: 20px;
+//        }
+//        img{
+//            height: 350px;
+//            width: 300px;
+//        }
+//    }
+// }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 425px){
     .spagep{
-        height: 420px;
+        height: 450px;
         width: 300px;
+        margin-right: 10px;
     }
     .spagec{
         .spagecc{
             font-size: 20px;
         }
+        .upload{
+            width: 280px;
+            >div{
+                width:100%;
+                >button{
+                    margin: 0 0 10px 0;
+                }
+            }
+        }
         img{
             height: 350px;
             width: 275px;
         }
+        .pagefooter{
+            width: 300px;
+            font-size: 15px;
+            span{
+                margin-left: 10px;
+            }
+            .unlikebtn{
+                font-size: 10px;
+                transform: translate(0,-7px);
+            }
+            .likebtn{
+                font-size: 10px;
+                transform: translate(0,-7px);
+            }
+        }
     }
+    
 }

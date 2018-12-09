@@ -55,6 +55,9 @@
         text-shadow: 1px 1px 2px red, 0 0 3em blue, 0 0 0.2em blue;
     }
 }
+.mobileTabs{
+    display: none;
+}
 
 
 
@@ -79,32 +82,40 @@
     }
 }
 
-@media (min-width: 320px) and (max-width: 425px){
-    .navp{
-        height: 60px;
-    }
+// @media (min-width: 320px) and (max-width: 425px){
+//     .navp{
+//         height: 60px;
+//     }
     
-    .navc {
-        margin: 0 10px;
+//     .navc {
+//         margin: 0 10px;
     
-        .navlinks{
-            transform: rotate(-20deg);
-            font-size: .5rem;
-        }
-        .navlinksL{
-            .logoimg{
-                height: 40px;
-                width: 40px;
-            } 
-        }
-        .navlinks:hover{
-            font-size: .8rem;
-        }
-    }
-}
+//         .navlinks{
+//             transform: rotate(-20deg);
+//             font-size: .5rem;
+//         }
+//         .navlinksL{
+//             .logoimg{
+//                 height: 40px;
+//                 width: 40px;
+//             } 
+//         }
+//         .navlinks:hover{
+//             font-size: .8rem;
+//         }
+//     }
+// }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 425px){
+    .navp{
+        height: 15vh;
+    }
+    .navc:nth-child(2){
+        display: none;
+    }
+    
     .navc {
+        margin: 0;
         .navlinks{
             margin: 0 8px;
             transform: rotate(-30deg);
@@ -112,12 +123,43 @@
         }
         .navlinksL{
             .logoimg{
-                height: 40px;
-                width: 40px;
+                height: 60px;
+                width: 60px;
             } 
         }
         .navlinks:hover{
             font-size: .7rem;
+        }
+    }
+    .mobileTabs{
+        display: block;
+        >.openMobileTab{
+            font-size: 50px;
+        }
+        >.tabList{
+            position: absolute;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.95);
+            height: 86vh;
+            width: 100vw;
+            transform: translate(-79vw,0);
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
+            align-items: center;
+            > .navlinks {
+                cursor: pointer;
+                margin: 30px 20px;
+                text-decoration: none;
+                color: white;
+                transform: rotate(-10deg);
+                font-size: 1.25rem;
+                text-shadow: 10px 10px rgba(0, 0, 0, 0.351);
+                transition: 1s;
+            }
+        }
+        .hideTabList{
+            display: none;
         }
     }
 }

@@ -71,7 +71,7 @@ showProfileEdit = ()=>{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
         }
     }
 
@@ -109,16 +109,18 @@ showProfileEdit = ()=>{
                              <img onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={profilePic} alt=""/>
                         </div>
                     </div>    
+                    <img id='mobilePicture' onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} src={profilePic} alt=""/>
+
                     
                     {/* <div style={{height:'10px'}}>{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.editClicked}  className='editpic'>Edit</button>:null}</div> */}
                     <div className='profileInfo'>
                         <div>
-                            <div style={this.style.div}><h4>Username: </h4><div>{lusername}</div></div>
-                            <div style={this.style.div}><h4>Name: </h4><div>{first_name + ' ' + last_name}</div></div>
-                            <div style={this.style.div}><h4>Email: </h4><div>{email}</div></div>
+                            <div style={this.style.div}><h4 style={{borderBottom: '.5px solid white'}}>Username: </h4><div>{lusername}</div></div>
+                            <div style={this.style.div}><h4 style={{borderBottom: '.5px solid white'}}>Name: </h4><div>{first_name + ' ' + last_name}</div></div>
+                            <div style={this.style.div}><h4 style={{borderBottom: '.5px solid white'}}>Email: </h4><div>{email}</div></div>
                         </div>
                         <div className='profileBio'>
-                            <div style={this.style.div}><h4>bio: </h4><div>{bio}</div></div>
+                            <div style={this.style.div}><h4 style={{borderBottom: '.5px solid white'}}>bio: </h4><div>{bio}</div></div>
                             <div style={{height:'10px'}}>
                             {/* {this.state.imageInput?
                                 <div className='editdiv'>
@@ -129,6 +131,8 @@ showProfileEdit = ()=>{
                             :null} */}
                             </div>
                             <button className='toggleContent3' onClick={this.showProfileEdit}>Edit</button>
+                            <button id='mobileContentBtn' onClick={this.showUserContent}>Content by: {lusername}</button>
+                            
                         </div>
                     </div>
                     <button className='toggleContent' onClick={this.showUserContent}>Content by: {lusername}</button>

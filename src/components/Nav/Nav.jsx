@@ -6,6 +6,12 @@ import {connect} from 'react-redux';
 import {clearUser} from '../../redux/reducer';
 
 class Nav extends Component{
+    constructor(){
+        super();
+        this.state = {
+            showTabs: false
+        }
+    }
 
 logout = ()=>{
     const {clearUser} = this.props;
@@ -15,6 +21,12 @@ logout = ()=>{
         clearUser();
         this.props.history.push('/');
         // window.sessionStorage.clear();
+    })
+}
+
+toggleTabs = ()=>{
+    this.setState({
+        showTabs: !this.state.showTabs
     })
 }
 
@@ -44,6 +56,31 @@ render(){
                     <Link className='navlinks' to='/signup'>Signup</Link> 
                 }
                 
+            </div>
+            <div className='mobileTabs'> 
+                <span onClick={this.toggleTabs} className='openMobileTab' role='img'>🗯</span>
+                <div className={this.state.showTabs ? 'tabList' : 'hideTabList'}>
+                {
+                    this.props.lusername ?
+                    <Link onClick={this.toggleTabs} className='navlinks' to='/createepic'>Start an Epic !!!</Link>
+                    :
+                    null
+                }
+                <Link onClick={this.toggleTabs} className='navlinks' to='/'>Home</Link>
+                <Link onClick={this.toggleTabs} className='navlinks' to='/about'>About</Link>
+                {
+                    this.props.lusername ?
+                    <Link onClick={this.toggleTabs} className='navlinks' to='/profile'>Profile</Link> 
+                    :
+                    <Link onClick={this.toggleTabs} className='navlinks' to='/login'>Login</Link>
+                }
+                {
+                    this.props.lusername ?
+                    <div onClick={()=>this.logout()} className='navlinks'>Logout</div>
+                    :
+                    <Link onClick={this.toggleTabs} className='navlinks' to='/signup'>Signup</Link> 
+                }
+                </div>
             </div>
         </div>
     )};

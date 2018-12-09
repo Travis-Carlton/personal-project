@@ -8,7 +8,7 @@ export default class Contact extends Component {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
-        const phone = document.getElementById('phone').value;
+        // const phone = document.getElementById('phone').value;
         // axios.post(`/api/sms`, {name,phone}).then(res=>console.log(res))
         axios.post('/api/send', {name,email,message}).then((response)=>{
             this.resetForm();

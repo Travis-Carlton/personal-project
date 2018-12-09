@@ -140,9 +140,9 @@ class Post extends Component {
                 </div>
                 <div className='footerdiv'>
                     <div>
-                        <span>Pages: {this.state.count}</span>
-                        <span style={{marginLeft:'20px'}}>Likes: {this.state.likecount}</span>
-                        {likedBooks.includes(id)?<button onClick={this.unlikeBook} className='unlikebtn'>-</button>:<button onClick={this.likeBook} className='likebtn'>+</button>}
+                        <span className='postpages'>Pages: {this.state.count}</span>
+                        <span >Likes: {this.state.likecount}</span>
+                        {likedBooks.includes(id)?<span aria-labelledby="" role='img' onClick={this.unlikeBook} className='unlikebtn'>👎🏻</span>:<span aria-labelledby="" role='img' onClick={this.likeBook} className='likebtn'>👍🏻</span>}
                     </div>
                     {this.state.hover?
                         <>
@@ -150,6 +150,7 @@ class Post extends Component {
                         </>
                         :
                             null}
+                    <div className='mobiledelete'><button onClick={this.deleteBook} id='deleteBtnM'>X</button></div>
                 </div>
             </div>
         </div>

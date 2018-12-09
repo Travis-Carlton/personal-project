@@ -254,7 +254,7 @@ class Spage extends Component {
                         <div><button onClick={this.uploadWidget} className="upload-button">
                             Add Images
                         </button>
-                        <div>If you upload more than one <br/>image, only the first one will be used.</div>
+                        <div>If you upload more than one image, only the first one will be used.</div>
                         </div>
                         :
                         <div>
@@ -270,11 +270,11 @@ class Spage extends Component {
                 <div className='pagefooter'>
                     {this.props.pimage?
                         <div><span>Comments: {this.state.count}</span>
-                            <span style={{marginLeft: '20px'}}>Likes: {this.state.pagelike}</span>
+                            <span>Likes: {this.state.pagelike}</span>
                             {likedPages.includes(pageId)?
-                                <button onClick={this.unlikePage} className='unlikebtn'>-</button>
+                                <span aria-labelledby="" role='img' onClick={this.unlikePage} className='unlikebtn'>👎🏻</span>
                             :
-                                <button onClick={this.likePage} className='likebtn'>+</button>}
+                                <span aria-labelledby="" role='img' onClick={this.likePage} className='likebtn'>👍🏻</span>}
                         </div>
                         :
                         null}{this.state.hover?<button onMouseEnter={this.mouseEnter} onClick={this.deleteBook} className='deleteBtn'>X</button>:null}</div>
