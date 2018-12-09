@@ -139,7 +139,7 @@ class CreateEpic extends Component {
         return (
             <div className="createepicp">
                 <div className="createepicc"> 
-                <h1 className='createh1'>Start your<br/>Epic</h1>
+                <h1 className='createh1'>Start your<br/> Epic</h1>
                 <span className='createspan'>Title: </span><input onChange={e=>updateBookName(e.target.value)} type="text" required/>
                 {/* <span>Upload Cover Image: </span><input onChange={e=>updateBookCover(e.target.value)} type='text' required/>
                 <span>Upload First Page: </span><input onChange={e=>this.handleChange('firstPage', e.target.value)} type='text' required/> */}

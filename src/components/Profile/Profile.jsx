@@ -150,12 +150,12 @@ showProfileEdit = ()=>{
                             </div>
 
                         </div>
-                            <button className='toggleContent2'  onClick={this.showUserContent}>Close</button>
+                        <button id='closeContentId' className='toggleContent2'  onClick={this.showUserContent}>Close</button>
                     </div>
 
                     {/* edit profile popup */}
 
-                    <div className={this.state.profileEdit?'profileEdit':'profileEditClosed'}>
+                    <div id='profileEdit' className={this.state.profileEdit?'profileEdit':'profileEditClosed'}>
                         <EditProfile {...this.props} updateProfile={this.updateProfile} toggleEdit={this.showProfileEdit}/>
                     </div>
                 </div>

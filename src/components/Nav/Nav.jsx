@@ -20,6 +20,7 @@ logout = ()=>{
     // console.log('clicked')
         clearUser();
         this.props.history.push('/');
+        this.setState({showTabs: false});
         // window.sessionStorage.clear();
     })
 }
@@ -33,7 +34,7 @@ toggleTabs = ()=>{
 render(){
     return (
         <div className="navp">
-            <div className="navc"><Link className='navlinksL' to='/' ><img className='logoimg' src="/images/tccomiclogov1.1.png" alt="ghjkh"/></Link></div>
+            <div onClick={()=>{this.setState({showTabs: false})}} className="navc"><Link className='navlinksL' to='/' ><img className='logoimg' src="/images/tccomiclogov1.1.png" alt="ghjkh"/></Link></div>
             <div className="navc">
                 {
                     this.props.lusername ?

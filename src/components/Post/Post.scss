@@ -62,7 +62,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             width: 20px;
             height: 20px;
             transition: .8s;
-            transform: translate(135px,-1px);
+            transform: translate(0px,-1px);
     }
       .deleteBtn:hover{
             font-size: 10px;
@@ -231,7 +231,7 @@ $text-shadow:  rgba(20, 25, 30, 0.81);
             // transform: translate(135px,-5px);
         }
         .likebtn{
-            font-size: 8px;
+            font-size: 12px;
         }
         >.footerdiv{
             width: 300px;
